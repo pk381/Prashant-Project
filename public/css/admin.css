@@ -7,7 +7,7 @@
 }
 
 .data-table{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 10px;
     box-shadow: 1px 1px 2px 2px rgb(187, 186, 184);
     border-radius: 5px;
@@ -90,6 +90,10 @@
     padding: 1px 20px;
     margin-right: 20px;
     /* border: 1px solid black; */
+}
+
+.admin:nth-child(3), .admin:nth-child(4){
+    background-color: rgb(249, 159, 159);
 }
 
 .card-single .info{

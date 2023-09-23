@@ -27,3 +27,18 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #ffce32;
 }
+
+.contact-form{
+    background-color: rgb(191, 230, 243);
+    padding: 10px 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 70%;
+    box-shadow: 2px 2px 2px 2px rgb(210, 209, 209);
+}
+
+.contact-form input, .contact-form textarea{
+    border: 1px solid rgb(58, 58, 58);
+
+    background-color: #d7eff5;
+}
