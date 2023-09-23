@@ -267,3 +267,7 @@ p {
 .after{
     /* display: none; */
 }
+
+.before{
+    display: none;
+}
