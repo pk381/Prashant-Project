@@ -1,0 +1,71 @@
+
+.genealogy-scroll::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+}
+.genealogy-scroll::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #e4e4e4;
+}
+.genealogy-scroll::-webkit-scrollbar-thumb {
+    background: #8e8e8e;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+.genealogy-scroll::-webkit-scrollbar-thumb:hover {
+    background: #d5b14c;
+    transition: 0.5s;
+}
+
+.genealogy-body{
+    white-space: nowrap;
+    overflow-y: hidden;
+    padding: 50px;
+    min-height: 500px;
+    padding-top: 10px;
+}
+
+.tree{
+    margin-top: 10px;
+    padding: 10px 10px;
+    display: flex;
+    width: max-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.node{
+    padding: 10px 0px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.node_element{
+    background-color: rgb(137, 247, 249);
+    min-width: 60px;
+    
+    max-width: max-content;
+    border-radius: 15px;
+    padding: 10px 8px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.node_children{
+    border-top: 2px solid rgb(10, 135, 193);
+    border-left: 2px solid rgb(10, 135, 193);
+    height: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-right: 2px solid rgb(10, 135, 193);
+    min-width: 170px;
+    display: flex;
+    flex-direction: row;
+    margin: 0px 5px;
+    justify-content: space-around;
+    padding: 10px;
+}

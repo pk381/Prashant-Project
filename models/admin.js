@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
+
 const sequelize = require('../util/database');
 
-const User = sequelize.define('user', {   
+const Admin = sequelize.define('admin', {   
     id:{
         type:Sequelize.DataTypes.INTEGER,
         allowNull:false,
@@ -23,12 +24,9 @@ const User = sequelize.define('user', {
     password:{
         type: Sequelize.DataTypes.STRING,
         allowNull:false
-    },
-    planType: Sequelize.DataTypes.STRING,
-    direct: Sequelize.DataTypes.INTEGER,
-    underId: Sequelize.DataTypes.INTEGER
+    }
 
 });
 
-module.exports = User;
+module.exports = Admin;
 

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
+const fileupload = require('express-fileupload');
 
 const app = express();
 
@@ -13,13 +14,21 @@ const adminRoute = require('./routes/admin');
 
 
 // // database tables
-// const User = require('./models/user');
+const User = require('./models/user');
+const Earning = require('./models/earning');
+const Referral = require('./models/referral');
+const WidthdrawlRequest = require('./models/widthdrawlRequest');
+const UpgrageRequest = require('./models/upgradeRequest');
+
+const Admin = require('./models/admin');
+const Company = require('./models/company');
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 
 // body parser in json
 app.use(bodyParser.json());
+app.use(fileupload());
 
 // serving routes
 app.use('/user', userRoute);
@@ -35,12 +44,32 @@ app.get('/', (req, res, next)=>{
 
 // table relations
 
+User.hasMany(Referral);
+Referral.belongsTo(User);
+
+User.hasOne(Earning);
+
+User.hasMany(WidthdrawlRequest);
+WidthdrawlRequest.belongsTo(User);
+
+User.hasOne(UpgrageRequest);
+UpgrageRequest.belongsTo(User);
+
+
+// updating database
+
+// const updateAll = require('./util/updateDatabase');
+
+// updateAll.updateUser();
+// updateAll.createDailyClub();
+
+
 // syncing database
 sequelize.sync()
 .then(res=>{
 
     app.listen(4000);
-
+    console.log("listening")
 }).catch(err=>{
     console.log(err);
 })

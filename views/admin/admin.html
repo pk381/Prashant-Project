@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Page</title>
-    <link rel="stylesheet" href="../public/css/main.css" />
-    <link rel="stylesheet" href="../public/css/admin.css" />
-    <link rel="stylesheet" href="../public/css/mobile_view.css" />
+    <link rel="stylesheet" href="/css/common/main.css" />
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+    <link rel="stylesheet" href="/css/common/header_and_footer.css" />
+    <link rel="stylesheet" href="/css/common/cards.css" />
+    <link rel="stylesheet" href="/css/common/table.css" />
   </head>
   <body>
     <header>
@@ -30,7 +32,7 @@
               <li><a href="user.html">User info</a></li>
               <li><a href="main.html">User Dashboard</a></li>
               <li><a href="members.html">All Members</a></li>
-
+              <li><a href="/admin/tree">Tree</a></li>
             </ul>
           </div>
 
@@ -44,7 +46,7 @@
     </header>
 
     <main>
-      <section class="admin-section">
+      <section class="main-section">
         <div class="container">
           <h1>Dashboard</h1>
 
@@ -53,7 +55,7 @@
               <h1>Green Members</h1>
 
               <div class="info">
-                <h1>800</h1>
+                <h1 id="green_member_in_lifetime">00</h1>
                 <p>in Lifetime</p>
               </div>
             </div>
@@ -62,7 +64,7 @@
               <h1>Green Members</h1>
 
               <div class="info">
-                <h1>50</h1>
+                <h1 id="green_member_in_this_month">00</h1>
                 <p>in This Month</p>
               </div>
             </div>
@@ -71,7 +73,7 @@
               <h1>Red Members</h1>
 
               <div class="info">
-                <h1>120</h1>
+                <h1 id="red_member_in_lifetime">00</h1>
                 <p>in Lifetime</p>
               </div>
             </div>
@@ -80,18 +82,18 @@
               <h1>Red Members</h1>
 
               <div class="info">
-                <h1>8</h1>
+                <h1 id="red_member_in_this_month">00</h1>
                 <p>in This Month</p>
               </div>
             </div>
           </div>
 
-          <div class="cards">
+          <div class="cards company">
             <div class="card-single company-info">
               <h1>Total Company Earning</h1>
 
               <div class="info">
-                <h1>200200.00₹</h1>
+                <h1 id="earning_in_lifetime">00.00₹</h1>
                 <p></p>
               </div>
             </div>
@@ -100,43 +102,31 @@
               <h1>Today's Company Earning</h1>
 
               <div class="info">
-                <h1>20000.00₹</h1>
+                <h1 id="earning_in_this_month">00.00₹</h1>
                 <p></p>
               </div>
             </div>
           </div>
 
+          <h1>Member Joined This Month</h1>
           <div class="data-table">
-            <h1>Member Joined This Month</h1>
             <table class="user-table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Location</th>
-                  <!-- Add more user details as needed -->
+                  <th>Joining Date</th>
+                  <th>Plan</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- Replace this with dynamic data from your backend -->
-                <tr>
-                  <td>1</td>
-                  <td>john_doe</td>
-                  <td>john@example.com</td>
-                  <td>New York</td>
-                  <!-- Add more user details as needed -->
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>jane_smith</td>
-                  <td>jane@example.com</td>
-                  <td>Los Angeles</td>
-                  <!-- Add more user details as needed -->
-                </tr>
-                <div class="pagination"></div>
-              </tbody>
+              <tbody id="table"></tbody>
             </table>
+            <!-- <div class="pagination">
+              <button id="prev">Previous Page</button>
+              <button id="now">4</button>
+              <button id="next">Next Page</button>
+            </div> -->
           </div>
         </div>
       </section>
@@ -148,18 +138,8 @@
       </div>
     </footer>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const hamburger = document.querySelector(".hamburger");
-        const mobileMenu = document.querySelector(".nav-links");
-
-        mobileMenu.classList.toggle("active");
-
-        hamburger.addEventListener("click", function () {
-          mobileMenu.classList.toggle("active");
-          hamburger.classList.toggle("open");
-        });
-      });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="/js/admin/admin.js"></script>
+    <script src="/js/common/header.js"></script>
   </body>
 </html>

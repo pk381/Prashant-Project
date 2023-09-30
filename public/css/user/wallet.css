@@ -1,0 +1,21 @@
+.balance{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.balance:nth-child(2){
+    background-color: rgb(250, 164, 164);
+}
+
+
+#widthdrawl-btn:hover h2{
+    cursor: pointer;
+    color: red;
+}
+
+#form-widthdrawl{
+    display: none;
+}

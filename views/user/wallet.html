@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Wallet</title>
+
+  <link rel="stylesheet" href="/css/common/header_and_footer.css" />
+  <link rel="stylesheet" href="/css/common/main.css" />
+  <link rel="stylesheet" href="/css/common/cards.css" />
+  <link rel="stylesheet" href="/css/common/table.css" />
+  <link rel="stylesheet" href="/css/user/wallet.css" />
+  <link rel="stylesheet" href="/css/common/form.css" />
+
+</head>
+
+<body>
+  <header>
+
+    <div class="mobile-menu">
+      <div class="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+
+      <div class="container">
+        <div class="logo-and-links">
+          <a href="#" class="logo">Your Logo</a>
+          <ul class="nav-links">
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="contact_us.html">Contact Us</a></li>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="user.html">User info</a></li>
+            <li><a href="main.html">User Dashboard</a></li>
+            <li><a href="wallet.html">My Wallet</a></li>
+
+        </div>
+
+        <div class="user-button">
+          <button>
+          </ul>
+          <a id="userName" href="/page/user">Prashant Kumar</a>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <section class="main-section">
+      
+      <div class="container">
+        <h1>My Wallet</h1>
+        <div class="cards">
+          <div class="card-single balance">
+            <div>
+              <h1>Available Balance</h1>
+
+              <div class="info">
+                <h1 id="available">00.00₹ after Tex</h1>
+                <p></p>
+              </div>
+            </div>
+
+            <div id="widthdrawl-btn">
+              <h2>Widthdrawl Now</h2>
+            </div>
+          </div>
+
+          <div class="card-single balance">
+            <div>
+              <h1>Total Widthdrawl</h1>
+
+              <div class="info">
+                <h1 id="widthdrawl">00.00₹</h1>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="form-widthdrawl"> 
+            
+          <form class="form">
+
+            <h1>Widthdrawl Form</h1>
+
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+            </div>
+
+            <div class="form-group">
+                <input type="number" id="amount" name="amount" placeholder="Enter Amount > 50$" required>
+            </div>
+            
+            <div class="form-btns">
+                <button type="submit" id="widthdraw">Widthdraw</button>
+                <button id="cancel">Cancel</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+      <div class="container">
+        <h1>Widthdrwal History</h1>
+
+          <div class="data-table">
+
+            <table class="user-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+
+              <tbody id="table">
+                <tr>
+                  <td>1</td>
+                  <td>1/10/2000</td>
+                  <td>00.00 $</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <div class="feature">
+          <h2>Discover</h2>
+          <p>Explore a world of ideas and creativity.</p>
+        </div>
+        <div class="feature">
+          <h2>Create</h2>
+          <p>Turn your visions into reality with our tools.</p>
+        </div>
+        <div class="feature">
+          <h2>Connect</h2>
+          <p>Join our community of like-minded innovators.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Your Creative Website. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script src="/js/user/wallet.js"></script>
+<script src="/js/common/header.js"></script>
+
+</body>
+
+</html>

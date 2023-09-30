@@ -1,0 +1,117 @@
+/* plan */
+.cards{
+  margin: 20px auto;
+  width: 100%;
+}
+
+#before{
+  display: flex;
+  /* border: 1px solid black; */
+  flex-direction: column;
+}
+
+#upload-recipt-form{
+  display: none;
+}
+
+#discription{
+  /* border: 1px solid black; */
+  max-width: 700px;
+}
+
+#qr-code{
+  width: 100px;
+  height: 100px;
+  margin: 10px 0px;
+}
+
+.plan {
+  width: 100%;
+  height: fit-content;
+}
+
+.plan .buy {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.plan .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plan .info p {
+  color: red;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.buy button {
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+  color: black;
+  background-color: #f4fcc8;
+  border: 1px solid rgb(46, 115, 0);
+}
+
+.buy button:hover {
+  background-color: #85f594;
+}
+
+/* table panel */
+.panel{
+  margin: 10px 0px;
+}
+.panel button{
+  background-color: #104dd1;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  padding: 5px 20px;
+}
+
+.panel button:hover{
+  background-color: #719efd;
+}
+
+.team .card-single{
+  background-color: rgb(255, 255, 172);
+}
+
+
+@media (max-width:750px){
+
+  .form{
+    width: 90%;
+  }
+
+  .panel button{
+    border-radius: 5px;
+    font-size: .8rem;
+    padding: 4px 4px;
+  }
+
+  .plan .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .plan{
+    height: fit-content;
+    width: 90%;
+  }
+
+  .buy button {
+    width: 70%;
+  }
+
+}

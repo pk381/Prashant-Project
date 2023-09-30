@@ -1,0 +1,58 @@
+#image{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border-radius: 7px;
+}
+.form{
+    margin: 5px 0px;
+    width: 25%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.form input{
+
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 3px;
+    height: 20px;
+    width: 70%;
+    margin: 5px 1px;
+    outline: none;
+}
+
+#changePassword{
+  background-color: #104dd1;
+  color: white; 
+  border: 1px solid transparent;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  padding: 0px 10px;
+}
+
+#changePassword:hover{
+    background-color: #719efd;
+  }
+
+.form button{
+    margin: 5px 5px;
+    padding: 2px 8px;
+    width: fit-content;
+    background-color: #104dd1;
+    color: white; 
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
+}
+
+
+@media (max-width: 750px) {
+
+    .form{
+        width: 80%;
+    }
+    
+}

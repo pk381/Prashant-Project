@@ -9,5 +9,6 @@ exports.getContactUs = (req, res)=>{
 }
 
 exports.getUserPage = (req, res)=>{
-    res.sendFile(path.join(rootDir, "views", "user.html"));
+    res.sendFile(path.join(rootDir, "views/user", "user.html"));
 }
+

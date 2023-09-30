@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requests</title>
+
+    <link rel="stylesheet" href="/css/common/main.css" />
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+    <link rel="stylesheet" href="/css/common/header_and_footer.css" />
+    <link rel="stylesheet" href="/css/common/table.css" />
+    <link rel="stylesheet" href="/css/common/cards.css" />
+  </head>
+  <body>
+    <header>
+      <div class="mobile-menu">
+        <div class="hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+
+      <nav class="navbar">
+        <div class="container">
+          <div class="logo-and-links">
+            <a href="#" class="logo">Your Logo</a>
+            <ul class="nav-links">
+              <li><a href="main.html">Home</a></li>
+              <li><a href="about_us.html">About Us</a></li>
+              <li><a href="contact_us.html">Contact Us</a></li>
+              <li><a href="admin.html">Admin</a></li>
+              <li><a href="user.html">User info</a></li>
+              <li><a href="main.html">User Dashboard</a></li>
+              <li><a href="members.html">All Members</a></li>
+            </ul>
+          </div>
+
+          <div class="user-button">
+            <button>
+              <li><a href="">Prashant Kumar</a></li>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="main-section">
+        <div class="container">
+          <div class="cards" id="request-info">
+            <div class="card-single request-info">
+
+              <div class="top-up">
+                <h1>Check Request</h1>
+                <button id="hide">X</button>
+              </div>
+              <div class="info">
+
+                <div id="details">
+                  <h2 id="userName">Name: John Doe</h2>
+                  <p id="amount">Amount:</p>
+                  <p id="transactionId">Transaction Id:</p>
+                  <ul>
+                    <li><h2 id="Date">Date: 12/11/2222</h2></li>
+                  </ul>
+                </div>
+
+                <img id="image" src="/css/user/photo.jpg" alt="" />
+
+              </div>
+
+              <div class="buy">
+                <button id="approve">Approve</button>
+                <button id="cancel">Cancel</button>
+
+              </div>
+            </div>
+          </div>
+          <h1>Pending Requests</h1>
+          <div class="data-table">
+            <table class="user-table">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Transaction Id</th>
+                  <th>Verify</th>
+                </tr>
+              </thead>
+              <tbody id="table">
+                <tr>
+                  <td>ID</td>
+                  <td>Name</td>
+                  <td>Date</td>
+                  <td>Transaction Id</td>
+                  <td><button>Check</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div class="pagination">
+            <button id="prev">Previous Page</button>
+            <button id="now">4</button>
+            <button id="next">Next Page</button>
+          </div> -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Your Creative Website. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="/js/common/header.js"></script>
+    <script src="/js/admin/request.js"></script>
+  </body>
+</html>

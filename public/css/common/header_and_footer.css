@@ -1,0 +1,247 @@
+@charset "UTF-8";@import url('https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap');@font-face {
+    font-family: "gaxondrift";
+    src: url("../fonts/gaxondrift.eot");
+    src: url("../fonts/gaxondrift.eot?#iefix") format("embedded-opentype"),url("../fonts/gaxondrift.woff") format("woff");
+    font-weight: normal;
+    font-style: normal
+}
+
+
+
+body, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* hemburger */
+
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger {
+    margin: 5px 5px;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Rotate bars for close icon */
+.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* Header styles */
+.navbar .container{
+    display: flex;
+    /* border: 1px solid black; */
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 20px 2px;
+}
+
+.logo-and-links{
+    /* border: 1px solid black; */
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header {
+    /* border: 1px solid black; */
+    display: flex;
+    background-color: #104dd1;
+    padding: 0px 0;
+}
+
+.navbar {
+    display: flex;
+    /* border: 1px solid black; */
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #bbff00;
+    width: max-content;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+
+    margin: 0px 10px;
+    list-style: none;
+    justify-content: flex-end; 
+}
+
+.nav-links li {
+    margin-right: 20px;
+    display: flex;
+    width: max-content;
+    flex-direction: row;
+    height: min-content;
+    word-wrap: break-word;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ffce32;
+}
+
+.user-button {
+    text-align: right;
+}
+
+.user-button a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.user-button button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid  transparent;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-button button:hover {
+    background-color: #87c9f3;
+}
+
+.user-button button a:hover{
+    color: black;
+}
+
+
+@media (max-width: 768px) {
+
+    .mobile-menu {
+        display: block;
+    }
+
+    header {
+        /* border: 1px solid black; */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #104dd1;
+        padding: 0px 0;
+    }
+    .navbar{
+        width: 91%;
+    }
+
+    .navbar .container{
+
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        border-radius: 5px;
+        background-color: #5f6b85;
+        position: absolute;
+        top: 78px;
+        left: 0px;
+        width: fit-content;
+        text-align: left;
+        z-index: 1;
+    }
+
+    .logo{
+        margin-left: 20px;
+        width: fit-content;
+    }
+
+    .nav-links.active {
+        display: none;
+    }
+
+    .nav-links li {
+        margin: 0;
+    }
+
+    .nav-links li a {
+        padding: 15px;
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+        background-color: #5f6b85;
+
+    } 
+    
+}
+
+
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
+footer p {
+    font-size: 1rem;
+}
