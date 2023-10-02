@@ -12,8 +12,6 @@ document.getElementById("login").addEventListener("click", async (e) => {
   try {
     let res = await axios.post("http://localhost:4000/admin/login", obj);
 
-    console.log(res.data.message);
-
     if (res.data.message === "userNotExist") {
       console.log("user not exist");
 
@@ -22,7 +20,7 @@ document.getElementById("login").addEventListener("click", async (e) => {
       alert("Password is Incorrect");
     } else if (res.data.message === "loginSuccessfully") {
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userName", res.data.admin.name);
+      localStorage.setItem("user", JSON.stringify(res.data.admin));
 
       window.location.href = "/admin/main";
     }

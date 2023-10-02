@@ -1,22 +1,22 @@
+const token = localStorage.getItem('token');
 
-console.log("admin");
 window.addEventListener('DOMContentLoaded', async ()=>{
 
-    
-    console.log("fetching data");
-    const res = await axios.get('http://localhost:4000/admin/company-info');
+    const res = await axios.get('http://localhost:4000/admin/company-info', { headers: { Authorization: token}});
+
+    const members = res.data.info;
 
     if(res.data.message === 'got'){
 
     // members
-        document.getElementById("green_member_in_lifetime").innerText = res.data.info.greenMemberInLifetime + " ";
-        document.getElementById("green_member_in_this_month").innerText = res.data.info.greenMemberInThisMonth + " ";
-        document.getElementById("red_member_in_lifetime").innerText = res.data.info.redMemberInLifetime + " ";
-        document.getElementById("red_member_in_this_month").innerText = res.data.info.redMemberInThisMonth + " ";
+        document.getElementById("green_member_in_lifetime").innerText = members.allActive + " ";
+        document.getElementById("green_member_in_this_month").innerText = members.allActiveInMonth + " ";
+        document.getElementById("red_member_in_lifetime").innerText = members.notActive + " ";
+        document.getElementById("red_member_in_this_month").innerText = members.notActiveInMonth + " ";
 
     // earning
-        document.getElementById("earning_in_lifetime").innerText = res.data.info.earningInLifetime + '.00₹';
-        document.getElementById("earning_in_this_month").innerText = res.data.info.earningInThisMonth + '.00₹';
+        document.getElementById("earning_in_lifetime").innerText =  + '.00₹';
+        document.getElementById("earning_in_this_month").innerText =  + '.00₹';
 
     }
     else{
@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     }
     console.log(res.data);
 
-    const result = await axios.get('http://localhost:4000/admin/members-info');
+    const result = await axios.get('http://localhost:4000/admin/members-info',{ headers: { Authorization: token}});
 
     const message = result.data.message;
     const newMembers = result.data.newMembers
@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
 
 function showMember(member, index){
 
-    let newMembers = document.getElementById('newMembers');
+    let newMembers = document.getElementById('table');
 
     let tr = document.createElement('tr');
 
@@ -66,6 +66,10 @@ function showMember(member, index){
     tr.appendChild(email);
     tr.appendChild(joiningDate);
     tr.appendChild(plan);
+
+    if(member.planType === null){
+        tr.style.background = '#ff7474';
+    }
 
     newMembers.appendChild(tr);
 }

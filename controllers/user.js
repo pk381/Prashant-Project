@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 
 // models
 const User = require("../models/user");
-const DailyClub = require("../util/updateDatabase");
 const Earning = require("../models/earning");
 
 function generateToken(data) {
@@ -78,8 +77,9 @@ exports.postSignUp = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
 
-    if (user === null) {
+    const underId = parseInt(req.body.referralId.match(/\d+/g)[0]);
 
+    if (user === null) {
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
         if (err) {
           console.log(err);
@@ -89,9 +89,23 @@ exports.postSignUp = async (req, res, next) => {
             email: req.body.email,
             phone: req.body.phone,
             password: hash,
+            underId: underId,
           });
 
-          const earning = await Earning.create({
+          // let referingUser = await User.findByPk(underId);
+
+          // referingUser.direct += 1;
+
+          // await referingUser.save();
+
+          await Earning.create({
+            total: 0.0,
+            today: 0.0,
+            direct: 0.0,
+            dailyClub: 0.0,
+            level: 0.0,
+            boost: 0.0,
+            widthdrawl: 0.0,
             userId: newUser.id,
           });
 
@@ -113,10 +127,9 @@ exports.getLogin = (req, res, next) => {
 
 exports.postLogin = async (req, res, next) => {
   try {
-
     const user = await User.findOne({
       where: { email: req.body.email },
-      attributes: ["id", "name", "password", 'planType'],
+      attributes: ["id", "name", "password", "planType"],
     });
 
     if (user === null) {
@@ -124,26 +137,21 @@ exports.postLogin = async (req, res, next) => {
 
       res.status(201).json({ message: "userNotExist" });
     } else {
-
       bcrypt.compare(req.body.password, user.password, async (err, result) => {
-
         if (err) {
           console.log(err);
-        } 
-        else if(result === true){
-
+        } else if (result === true) {
           res.status(201).json({
             user: {
               id: user.id,
               name: user.name,
-              planType: user.planType
+              planType: user.planType,
+              type: "user",
             },
             message: "loginSuccessfully",
             token: generateToken(user.id),
-        }
-          );
-        }
-        else{
+          });
+        } else {
           res.status(201).json({ message: "passwordIncorrect" });
         }
       });
@@ -155,33 +163,33 @@ exports.postLogin = async (req, res, next) => {
 };
 
 exports.changePassword = async (req, res) => {
-
   try {
-    bcrypt.compare(req.body.oldPassword, req.user.password, async (err, result) => {
-      if (err) {
-        console.log(err);
-      } else if(result === true){
-      
-        bcrypt.hash(req.body.newPassword, 10, async (err, hash) => {
-          if (err) {
-            res.status(201).json({ message: "error in changing passwor" });
-            console.log(err);
-          } else {
+    bcrypt.compare(
+      req.body.oldPassword,
+      req.user.password,
+      async (err, result) => {
+        if (err) {
+          console.log(err);
+        } else if (result === true) {
+          bcrypt.hash(req.body.newPassword, 10, async (err, hash) => {
+            if (err) {
+              res.status(201).json({ message: "error in changing passwor" });
+              console.log(err);
+            } else {
+              req.user.password = hash;
+              await req.user.save();
 
-            req.user.password = hash;
-            await req.user.save();
-  
-            res.status(201).json({
-              message: "got",
-              token: generateToken(req.user.id),
-            });
-          }
-        });
+              res.status(201).json({
+                message: "got",
+                token: generateToken(req.user.id),
+              });
+            }
+          });
+        } else {
+          res.status(201).json({ message: "wrong" });
+        }
       }
-      else{
-        res.status(201).json({ message: "wrong" }); 
-      }
-    });
+    );
   } catch (err) {
     res.status(201).json({ message: "err" });
     console.log(err);
@@ -202,9 +210,161 @@ exports.getInfo = async (req, res) => {
   }
 };
 
-exports.upgradePlan = async (req, res) => {
+async function updateLevel(userId, amount, level) {
   try {
+    if (level >= 10) {
+      return;
+    }
+
+    const user = await User.findByPk(userId, { attributes: ["underId"] });
+
+    if (user === null) {
+      return;
+    }
+
+    const earning = await Earning.findOne({
+      where: { userId: userId },
+      attributes: ["level"],
+    });
+
+    earning.level += amount;
+
+    await earning.save();
+
+    await updateLevel(user.underId, amount, level + 1);
   } catch (err) {
     console.log(err);
+  }
+}
+exports.upgradePlan = async (req, res) => {
+  try {
+    const earning = await Earning.findOne({ where: { userId: req.user.id } });
+
+    const parentEarning = await Earning.findOne({
+      where: { userId: req.user.underId },
+    });
+
+    console.log(parentEarning);
+
+    const available = earning.total - earning.widthdrawl;
+
+    if (req.user.planType === null) {
+      console.log("nulllllllllllllllll");
+      res.status(201).json({ message: "not" });
+    } else if (req.user.planType === "royal") {
+      res.status(201).json({ message: "royal" });
+    } else {
+
+      let update = "not";
+      let direct = 0;
+      let total = 0;
+      let level = 0;
+      let planType = "";
+
+      switch (req.user.planType) {
+        case "starter":
+          if (available >= 20) {
+            total = 20;
+            direct = 10;
+            level = 0.4;
+            planType = "basic";
+            update = "yes";
+          }
+          break;
+
+        case "basic":
+          if (available >= 50) {
+            total = 50;
+            direct = 10;
+            level = 1;
+            planType = "star";
+            update = "yes";
+          }
+          break;
+
+        case "star":
+          if (available >= 100) {
+            total = 100;
+            direct = 10;
+            level = 2;
+            planType = "super star";
+            update = "yes";
+          }
+          break;
+
+        case "super star":
+          if (available >= 200) {
+            total = 200;
+            direct = 10;
+            level = 4;
+            planType = "prime";
+            update = "yes";
+          }
+          break;
+
+        case "prime":
+          if (available >= 500) {
+            total = 500;
+            direct = 10;
+            level = 10;
+            planType = "royal";
+            update = "yes";
+          }
+          break;
+      }
+
+      if (update === "yes") {
+        earning.total -= total;
+        req.user.planType = planType;
+
+        await earning.save();
+        await req.user.save();
+
+        if(parentEarning !== null){
+          parentEarning.direct += direct;
+          await parentEarning.save();
+        }
+
+        await updateLevel(req.user.underId, level, 1);
+
+        res.status(201).json({ message: "done" });
+      } else {
+        res.status(201).json({ message: "notenough" });
+      }
+    }
+  } catch (err) {
+    res.status(201).json({ message: "error" });
+    console.log("err in updating plan", err);
+  }
+};
+
+exports.getImage = async (req, res) => {
+  try {
+    console.log("geting image");
+
+    const user = await User.findOne({
+      where: { id: req.params.userId },
+      attributes: ["photo"],
+    });
+
+    res.send(user.photo);
+  } catch (err) {
+    console.log("err in geting user image", err);
+  }
+};
+
+exports.uploadImage = async (req, res) => {
+  try {
+    console.log("geting image");
+
+    const user = await User.findOne({ where: { id: req.user.id } });
+
+    user.photo = req.files.file.data;
+
+    await user.save();
+
+    res.status(201).json({ message: "got" });
+  } catch (err) {
+    console.log("err in geting user image", err);
   }
 };

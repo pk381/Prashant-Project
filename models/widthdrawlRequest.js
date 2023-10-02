@@ -11,6 +11,7 @@ const WidthdrawlRequest = sequelize.define('widthdrawlRequest', {
     },
     name: Sequelize.DataTypes.STRING,
     amount: Sequelize.FLOAT,
+    cryptoId: Sequelize.DataTypes.STRING,
     status: Sequelize.DataTypes.STRING
 });
 

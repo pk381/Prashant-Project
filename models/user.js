@@ -25,6 +25,7 @@ const User = sequelize.define('user', {
         allowNull:false
     },
     planType: Sequelize.DataTypes.STRING,
+    photo: Sequelize.DataTypes.BLOB('long'),
     direct: Sequelize.DataTypes.INTEGER,
     underId: Sequelize.DataTypes.INTEGER
 

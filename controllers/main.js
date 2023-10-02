@@ -2,9 +2,8 @@ const path = require("path");
 const rootDir = require("../util/path");
 const User = require("../models/user");
 const Earning = require("../models/earning");
-const WidthdrawlRequest = require('../models/widthdrawlRequest');
-const UpgradeRequest = require('../models/upgradeRequest');
-
+const WidthdrawlRequest = require("../models/widthdrawlRequest");
+const UpgradeRequest = require("../models/upgradeRequest");
 
 // const { Op } = require("sequelize");
 exports.getMain = (req, res, next) => {
@@ -15,112 +14,107 @@ exports.getWallet = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views/user", "wallet.html"));
 };
 
-exports.getEarnings = async (req, res)=>{
+exports.getEarnings = async (req, res) => {
+  try {
+    let earning = await Earning.findOne({ where: { userId: req.user.id } });
 
-  try{
-
-    let earning = await Earning.findOne({where: {userId: req.user.id}})
-
-    res.status(201).json({message: 'got', earning: earning});
-
-  }
-  catch(err){
+    res.status(201).json({ message: "got", earning: earning });
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
+async function getTotalTeam(userId) {
 
-async function getTotalTeam(userId){
+  try {
+    let children = await User.findAll({
+      where: { underId: userId },
+      attributes: ["id", "name", "planType", "createdAt"]
+    });
 
-  try{
+    let array = [...children];
 
-    let children = await User.findAll({where: {underId: userId}, attributes: ['id','name', 'planType', 'createdAt']});
-
-    const array = [...children];
-
-    for(let i = 0;i<children.length;i++){
-
+    for (let i = 0; i < children.length; i++) {
       let childs = await getTotalTeam(children[i].id);
-      array.concat(childs);
+      array = array.concat(childs);
     }
 
     return array;
-
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
   }
 }
 
-exports.getMembers = async (req, res)=>{
-
-  try{
-
+exports.getMembers = async (req, res) => {
+  try {
     const team = await getTotalTeam(req.user.id);
 
-    const directTeam = await User.findAll({where: {underId: req.user.id}, attributes: ['id','name', 'planType', 'createdAt']});
-    
-    res.status(201).json({message: 'got', members: {team: team, directTeam: directTeam}});
-    // active: active, notActive: notActive
+    const directTeam = await User.findAll({
+      where: { underId: req.user.id },
+      attributes: ["id", "name", "planType", "createdAt"],
+    });
 
-  }
-  catch(err){
+    res
+      .status(201)
+      .json({
+        message: "got",
+        members: { team: team, directTeam: directTeam },
+      });
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
-exports.getWalletInfo = async (req, res) =>{
+exports.getWalletInfo = async (req, res) => {
+  try {
+    const earning = await Earning.findOne({ where: { userId: req.user.id } });
 
-  try{
-
-    const earning = await Earning.findOne({where: {userId: req.user.id}});
-
-    res.status(201).json({ message: 'got', wallet : {available: (earning.total - earning.widthdrawl), widthdrawl: earning.widthdrawl}});
-
-  }
-  catch(err){
+    res
+      .status(201)
+      .json({
+        message: "got",
+        wallet: {
+          available: earning.total - earning.widthdrawl,
+          widthdrawl: earning.widthdrawl,
+        },
+      });
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
-exports.widthdrawlRequest = async(req, res)=>{
-  try{
-
+exports.widthdrawlRequest = async (req, res) => {
+  try {
     const request = await WidthdrawlRequest.create({
       name: req.body.name,
       amount: parseFloat(req.body.amount),
-      status: 'PENDING',
-      userId: req.user.id
+      status: "PENDING",
+      cryptoId: req.body.cryptoId,
+      userId: req.user.id,
     });
 
-    res.status(201).json({message: 'got', request: request});
-
-  }
-  catch(err){
+    res.status(201).json({ message: "got", request: request });
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
-exports.widthdrawlHistory = async (req, res)=>{
-  try{
+exports.widthdrawlHistory = async (req, res) => {
+  try {
+    const history = await WidthdrawlRequest.findAll({
+      where: { userId: req.user.id },
+    });
 
-    const history = await WidthdrawlRequest.findAll({where: {userId: req.user.id}});
-
-    res.status(201).json({message: 'got', history: history});
-
-  }
-  catch(err){
+    res.status(201).json({ message: "got", history: history });
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
-exports.joiningRequest = async(req, res)=>{
-
-  try{
-
+exports.joiningRequest = async (req, res) => {
+  try {
     const file = req.files.file.data;
     const info = JSON.parse(req.body.info);
-    // console.log(file);
 
     console.log(info.name, info.amount, info.transactionId);
 
@@ -128,43 +122,27 @@ exports.joiningRequest = async(req, res)=>{
       name: info.name,
       amount: parseFloat(info.amount),
       transactionId: info.transactionId,
+      status: 'PENDING',
       photo: file,
-      userId: req.user.id
-    })
+      userId: req.user.id,
+    });
 
-    // console.log(request);
-
-    res.status(201).json({message: 'got'});
+    res.status(201).json({ message: "got" });
+  } catch (err) {
+    console.log("err in joining request- ", err);
   }
-  catch(err){
-    console.log("err in joining request- ",err);
-  }
+};
 
-}
-
-// exports.getImage = async (req, res) =>{
-//   try{
-
-//     const images = await UpgradeRequest.findAll({where: {userId: req.user.id}});
-
-//     res.status(201).json({images: images});
-//   }
-//   catch(err){
-//     console.log(err);
-//   }
-// }
-
-exports.getImage = async (req, res) =>{
-  try{
-
-    const images = await UpgradeRequest.findAll();
+exports.getImage = async (req, res) => {
+  try {
+    const upgradeRequest = await UpgradeRequest.findOne({
+      where: { id: req.params.requestId },
+      attributes: ["photo"],
+    });
 
     // res.setHeader('Content-Type', 'image/jpg')
-    // res.send(images[1].photo);
-    res.status(201).json({images: images[1].photo});
-
-  }
-  catch(err){
+    res.send(upgradeRequest.photo);
+  } catch (err) {
     console.log(err);
   }
-}
+};

@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Profile - Your Creative Website</title>
+    <title>My Profile</title>
     <link rel="stylesheet" href="/css/common/header_and_footer.css" />
     <link rel="stylesheet" href="/css/common/main.css" />
     <link rel="stylesheet" href="/css/user/user.css" />
-
   </head>
   <body>
     <header>
@@ -19,22 +18,7 @@
         </div>
       </div>
 
-      <nav class="navbar">
-        <div class="container">
-          <div class="logo-and-links">
-            <a href="#" class="logo">Your Logo</a>
-            <ul class="nav-links">
-              <li><a href="main.html">Home</a></li>
-              <li><a href="about_us.html">About Us</a></li>
-              <li><a href="contact_us.html">Contact Us</a></li>
-              <li><a href="admin.html">Admin</a></li>
-              <li><a href="user.html">User info</a></li>
-              <li><a href="main.html">User Dashboard</a></li>
-              <li><a href="members.html">All Members</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <nav class="navbar" id="navbar"></nav>
     </header>
 
     <main>
@@ -42,19 +26,25 @@
         <div class="container">
           <h1>My Profile</h1>
           <div class="user-info">
-            <img id="image" src="http://localhost:4000/main/get-image" alt="User Avatar" class="user-avatar" />
-            <form class="form" action="">
-              <input type="file">
+            <img id="image" src="" alt="User Avatar" class="user-avatar" />
+            <form class="form" action="" enctype="multipart/form-data">
+              <input type="file" id="imageUpload" />
               <button type="submit" id="upload">Upload</button>
             </form>
-          <div class="user-details">
-            <h2 id="userName">John Doe</h2>
-            <p id="email">Email:</p>
-            <p id="phoneNo">Mob. No.</p>
+
+            <div class="planType">
+              <h1 id="planType">Plan Type: </h1>
+              <form action="">
+                <button type="submit" id="upgrade">Upgrade Now</button>
+              </form>
+            </div>
+
+            <div class="user-details">
+              <h2 id="user-name">John Doe</h2>
+              <p id="email">Email:</p>
+              <p id="phoneNo">Mob. No.</p>
+            </div>
           </div>
-          
-          </div>
-          <p>Here's some information about the user:</p>
           <ul>
             <li><h2 id="joiningDate">Joined: January 15, 2022</h2></li>
             <li><h2>Interests: Web Development, Design</h2></li>
@@ -67,20 +57,28 @@
 
           <div>
             <button id="changePassword">Change Password</button>
-  
+
             <form class="form" id="change-form">
-              <input type="password" id="oldPassword" placeholder="Old Password" autocomplete="true">
-              <input type="password" id="newPassword" placeholder="New Password" autocomplete="true">
-  
+              <input
+                type="password"
+                id="oldPassword"
+                placeholder="Old Password"
+                autocomplete="true"
+              />
+              <input
+                type="password"
+                id="newPassword"
+                placeholder="New Password"
+                autocomplete="true"
+              />
+
               <div class="btns">
                 <button id="change">Change</button>
                 <button id="cancel">Cancel</button>
               </div>
-              
             </form>
           </div>
         </div>
-        
       </section>
     </main>
 
@@ -91,9 +89,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-
     <script src="/js/common/header.js"></script>
     <script src="/js/user/user.js"></script>
-
   </body>
 </html>

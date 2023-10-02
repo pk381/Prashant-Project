@@ -1,18 +1,25 @@
 const user = JSON.parse(localStorage.getItem("user"));
 
+const token = localStorage.getItem("token");
+
+document.getElementById("planType").innerText = user.planType;
+
 document.getElementById("linkLeft").innerText = `/sign_up/${user.id}/Left`;
 document.getElementById("linkRight").innerText = `/sign_up/${user.id}/Right`;
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
+    document.getElementById("image").src =
+      "http://localhost:4000/user/image/" + user.id;
+
     const res = await axios.get("http://localhost:4000/user/get-info", {
-      headers: { Authorization: localStorage.getItem("token") },
+      headers: { Authorization: token },
     });
 
     if (res.data.message === "got") {
       let user = res.data.info;
 
-      document.getElementById("userName").innerText = "Name: " + user.name;
+      document.getElementById("user-name").innerText = "Name: " + user.name;
       document.getElementById("email").innerText = "Email: " + user.email;
       document.getElementById("phoneNo").innerText = "Mob. No.: " + user.phone;
       document.getElementById("joiningDate").innerText =
@@ -60,8 +67,9 @@ document.getElementById("change").addEventListener("click", async (e) => {
     };
 
     const res = await axios.post(
-      "http://localhost:4000/user/change-password", obj,
-      { headers: { Authorization: localStorage.getItem("token")}}
+      "http://localhost:4000/user/change-password",
+      obj,
+      { headers: { Authorization: token } }
     );
 
     const message = res.data.message;
@@ -69,7 +77,7 @@ document.getElementById("change").addEventListener("click", async (e) => {
     if (message === "got") {
       alert("Password Changed Successfully!");
       getFormBtn.click();
-      localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("token", res.data.token);
     } else if (message === "wrong") {
       alert("Your Old Password is Wrong! Please Enter a Valid Password");
     } else {
@@ -80,38 +88,54 @@ document.getElementById("change").addEventListener("click", async (e) => {
   }
 });
 
+let userPhoto;
+document.getElementById("imageUpload").addEventListener("change", (e) => {
+  userPhoto = e.target.files[0];
+});
 
-async function getImage(){
+document.getElementById("upload").addEventListener("click", async (e) => {
+  e.preventDefault();
 
-  
-  try{
-    
-    const res = await axios.get("http://localhost:4000/main/get-image",
-    { headers: { Authorization: localStorage.getItem("token")}}
-    );
-    
-    let images = res.data.images;
+  try {
+    const formData = new FormData();
 
-    
-    const blob = new Blob([images.data], {type: 'image/jpg'}); // Adjust the type as needed
-    
-    console.log(blob);
+    formData.append("file", userPhoto);
 
-    const photo = new File([images], {type: blob.type});
+    const res = await axios.post("http://localhost:4000/user/image", formData, {
+      headers: { Authorization: token, "Content-Type": "multipart/form-data" },
+    });
 
-    console.log(photo);
-
-    const objectURL = URL.createObjectURL(photo);
-
-    console.log(images, objectURL);
-
-    document.getElementById('image').src = objectURL;
-
-  }
-  catch(err){
+    if (res.data.message === "got") {
+      window.location = "/page/user";
+    }
+  } catch (err) {
     console.log(err);
   }
-}
+});
 
+// updating plan
 
-getImage();
+document.getElementById("upgrade").addEventListener("click", async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post(
+      "http://localhost:4000/user/upgrade",
+      {},
+      { headers: { Authorization: token } }
+    );
+
+    const message = res.data.message;
+
+    if (message === "done") {
+      alert("Your plan upgraded successfully");
+    } else if (message === "notenough") {
+      alert("You do not have enough money");
+    } else if (message === "royal") {
+      alert("You have best plan");
+    } else {
+      alert("You do not have active plan");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});

@@ -21,8 +21,6 @@ router.post('/widthdrawl-request', authantication.authanticate, mainController.w
 
 router.post('/joining-request', authantication.authanticate, mainController.joiningRequest);
 
-router.get('/get-image', mainController.getImage);
-
-
+router.get('/get-image/:requestId', mainController.getImage);
 
 module.exports = router;

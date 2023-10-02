@@ -21,28 +21,7 @@
         </div>
       </div>
 
-      <nav class="navbar">
-        <div class="container">
-          <div class="logo-and-links">
-            <a href="#" class="logo">Your Logo</a>
-            <ul class="nav-links">
-              <li><a href="main.html">Home</a></li>
-              <li><a href="about_us.html">About Us</a></li>
-              <li><a href="contact_us.html">Contact Us</a></li>
-              <li><a href="admin.html">Admin</a></li>
-              <li><a href="user.html">User info</a></li>
-              <li><a href="main.html">User Dashboard</a></li>
-              <li><a href="members.html">All Members</a></li>
-            </ul>
-          </div>
-
-          <div class="user-button">
-            <button>
-              <li><a href="">Prashant Kumar</a></li>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <nav class="navbar" id="navbar"></nav>
     </header>
 
     <main>
@@ -58,15 +37,17 @@
               <div class="info">
 
                 <div id="details">
-                  <h2 id="userName">Name: John Doe</h2>
+                  <h2 id="id">User Id: </h2>
+                  <h2 id="requestName">Name:</h2>
                   <p id="amount">Amount:</p>
                   <p id="transactionId">Transaction Id:</p>
+
                   <ul>
                     <li><h2 id="Date">Date: 12/11/2222</h2></li>
                   </ul>
                 </div>
 
-                <img id="image" src="/css/user/photo.jpg" alt="" />
+                <img id="image" src="" alt="Nothing To Show" />
 
               </div>
 
@@ -77,16 +58,29 @@
               </div>
             </div>
           </div>
-          <h1>Pending Requests</h1>
+
+          <div class="panel">
+            <button id="joining-requests">Joining Requests</button>
+            <button id="widthdrawl-requests">Widthdrawl Requests</button>
+          </div>
           <div class="data-table">
             <table class="user-table">
               <thead>
-                <tr>
+                <tr id="joining">
                   <th>User ID</th>
+                  <th>Name</th>
                   <th>Amount</th>
                   <th>Date</th>
                   <th>Transaction Id</th>
                   <th>Verify</th>
+                </tr>
+                <tr id="widthdrawl">
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Crypto Id</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="table">
@@ -103,7 +97,7 @@
             <button id="prev">Previous Page</button>
             <button id="now">4</button>
             <button id="next">Next Page</button>
-          </div> -->
+             </div> -->
           </div>
         </div>
       </section>

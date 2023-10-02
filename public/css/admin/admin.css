@@ -1,81 +1,105 @@
-.cards .company-info{
-    width: 45%;
-    /* border: 1px solid black; */
-    background-color: #0844d1;
-}
-  
-.company-info h1{
-    color: white;
+.cards .company-info {
+  width: 45%;
+  /* border: 1px solid black; */
+  background-color: #0844d1;
 }
 
-.admin:nth-child(3), .admin:nth-child(4){
-
-    background-color: rgb(249, 188, 188);
+.company-info h1 {
+  color: white;
 }
 
-#request-info{
-    display: none;
+.admin:nth-child(3),
+.admin:nth-child(4) {
+  background-color: rgb(249, 188, 188);
 }
 
-.cards .request-info{
-    position: fixed;
-    width: 60%;
-    top: 30%;
-    left: 200px;
-    margin: 0px auto;
-    /* border: 1px solid black; */
+#request-info {
+  display: none;
 }
 
-.request-info #image{
-    width: 200px;
+.cards .request-info {
+  position: fixed;
+  width: 60%;
+  top: 30%;
+  left: 200px;
+  margin: 0px auto;
+  /* border: 1px solid black; */
 }
 
-.cards .request-info .info{
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.request-info #image {
+  width: 200px;
 }
 
-.info #details{
-    /* border: 1px solid black; */
-    width: 50%;
+.cards .request-info .info {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.buy button{
-    /* border: 1px solid black; */
-    margin-right: 40px;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+.info #details {
+  /* border: 1px solid black; */
+  width: 50%;
 }
 
-.top-up{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.buy button {
+  /* border: 1px solid black; */
+  margin-right: 40px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.top-up button{
-    padding: 8px 20px;
-    height: fit-content;
+.top-up {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
+
+.top-up button {
+  padding: 8px 20px;
+  height: fit-content;
+}
+
+/* panel */
+.panel {
+  margin: 10px 0px;
+}
+
+.panel button {
+  background-color: #104dd1;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  padding: 5px 20px;
+}
+
+.panel button:hover {
+  background-color: #719efd;
+}
+
 @media (max-width: 750px) {
+  .cards .company-info {
+    width: 90%;
+  }
 
-    .cards .company-info{
-        width: 90%;
-    }
+  .cards .request-info {
+    position: fixed;
+    width: 86%;
+    top: 100px;
+    left: 5px;
+    height: max-content;
+  }
 
-    .cards .request-info{
-        position: fixed;
-        width: 86%;
-        top: 100px;
-        left: 5px;
-        height: max-content;
-    }
-
-
+  .panel button {
+    border-radius: 5px;
+    font-size: 0.8rem;
+    padding: 4px 4px;
+  }
 }
-

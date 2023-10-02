@@ -1,67 +1,58 @@
-const User = require('../models/user');
-const Earning = require('../models/earning');
-const DailyClub = require('../models/daily_club');
+const User = require("../models/user");
+const Earning = require("../models/earning");
+const DailyClub = require("../models/daily_club");
 
+async function updateIncome(per, planType, direct) {
+  try {
+    const allUser = await User.findAll({ where: { planType: planType, direct: direct } });
 
-async function updateIncome(per, planType){
+    let date = new Date();
+    date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
 
-    try{
-        const allUser = await User.findAll({where: {planType : planType}});
+    let dailyClub = await DailyClub.findOne({ where: { date: date } });
 
-        let date = new Date();
-        date = date.getDate() +"/"+ date.getMonth() +"/"+ date.getFullYear();
+    let income = (dailyClub.amount * per) / allUser.length;
 
-        let dailyClub = await DailyClub.findOne({where: {date: date}});
+    allUser.forEach(async (user) => {
+      let earning = await Earning.findOne({ where: { userId: user.id } });
 
-        let income = (dailyClub.amount*per)/allUser.length;
+      earning.dailyClub += income;
 
-        allUser.forEach( async (user) => {
-            
-            let earning = await Earning.findOne({where: {userId: user.id}});
-
-            earning.dailyClub += income;
-
-            await earning.save();
-        });
-
-    }
-    catch(err){
-        console.log(err);
-    }
+      await earning.save();
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-exports.updateDailyClubIncome = async ()=>{
-    try{
-        await updateIncome(0.3, '20');
-        await updateIncome(0.25, '50');
-        await updateIncome(0.20, '100');
-        await updateIncome(0.15, '200');
-        await updateIncome(0.10, '500'); 
+exports.updateDailyClubIncome = async () => {
+  try {
+    await updateIncome(0.3, "basic", 2);
+    await updateIncome(0.25, "star", 4);
+    await updateIncome(0.2, "super star", 6);
+    await updateIncome(0.15, "prime", 8);
+    await updateIncome(0.1, "royal", 10);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.createDailyClub = async () => {
+  try {
+    let date = new Date();
+    date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+    const dailyClub = await DailyClub.findOne({ where: { date: date } });
+
+    if (dailyClub === null) {
+      const club = await DailyClub.create({
+        date: date,
+      });
+
+      return club;
     }
-    catch(err){
-        console.log(err);
-    }
-}
-
-exports.createDailyClub = async () =>{
-    try{
-        let date = new Date();
-
-        date = date.getDate() +"/"+ date.getMonth() +"/"+ date.getFullYear();
-
-        const dailyClub = await DailyClub.findOne({where: {date: date}});
-
-        if(dailyClub === null){
-
-            const club = await DailyClub.create({
-                date: date
-            });
-
-            return club;
-        }
-        return dailyClub;
-    }
-    catch(err){
-        console.log(err);
-    }
-}
+    return dailyClub;
+  } catch (err) {
+    console.log(err);
+  }
+};

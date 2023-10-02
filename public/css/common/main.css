@@ -29,6 +29,10 @@ p {
   margin: 5px 5px;
 }
 
+.main-section .container{
+  margin: 5px 5px;
+}
+
 @media (max-width: 768px) {
   h1 {
     font-size: 1.3rem;

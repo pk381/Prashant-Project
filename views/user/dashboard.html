@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/css/common/table.css" />
     <link rel="stylesheet" href="/css/common/form.css" />
 
-
   </head>
 
   <body>
@@ -24,28 +23,7 @@
         </div>
       </div>
 
-      <nav class="navbar">
-        <div class="container">
-          <div class="logo-and-links">
-            <a href="#" class="logo">Your Logo</a>
-            <ul class="nav-links">
-              <li><a href="main.html">Home</a></li>
-              <li><a href="about_us.html">About Us</a></li>
-              <li><a href="contact_us.html">Contact Us</a></li>
-              <li><a href="admin.html">Admin</a></li>
-              <li><a href="user.html">User info</a></li>
-              <li><a href="main.html">User Dashboard</a></li>
-              <li><a href="/main/wallet">My Wallet</a></li>
-            </ul>
-          </div>
-
-          <div class="user-button">
-            <button>
-              <a id="userName" href="/page/user">Prashant Kumar</a>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <nav class="navbar" id="navbar"></nav>
     </header>
 
     <main>
@@ -59,11 +37,10 @@
                 <h1>Join Now</h1>
                 <div class="info">
                   <div id="plan">
-                    <h1>750.00₹</h1>
+                    <h1>10.00$</h1>
                     <p id="discription">
-                      In this plan Joining fee will be 750 rupees and after that
-                      if you add two people with the same plane you will get 100
-                      rupees every week for three months
+                      In this plan Joining fee will be 10.00 dollars and after that
+                      if you add two people with the same plan you will get rewards daily and monthly.
                     </p>
                   </div>
                   <img id="qr-code" src="/css/user/photo.jpg" alt="" />
@@ -75,32 +52,58 @@
               </div>
             </div>
 
-            <form class="form" id="upload-recipt-form" enctype="multipart/form-data">
-
+            <form
+              class="form"
+              id="upload-recipt-form"
+              enctype="multipart/form-data"
+            >
               <h1>Upload Your Recipt</h1>
-  
+
               <div class="form-group">
-                  <input type="text" id="name" name="name" placeholder="Name" required>
-              </div>
-  
-              <div class="form-group">
-                  <input type="number" id="amount" name="amount" placeholder="Enter Amount" required>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Name"
+                  required
+                />
               </div>
 
               <div class="form-group">
-                <input type="text" id="transactionId" name="transactionId" placeholder="Enter transaction Id" required>
+                <input
+                  type="number"
+                  id="amount"
+                  name="amount"
+                  placeholder="Enter Amount"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="transactionId"
+                  name="transactionId"
+                  placeholder="Enter transaction Id"
+                  required
+                />
               </div>
 
               <div class="form-group">
                 <label for="recipt-photo">Recipt Photo:</label>
-                <input type="file" id="recipt-photo" name="recipt-photo" placeholder="Upload your recipt" required>
+                <input
+                  type="file"
+                  id="recipt-photo"
+                  name="recipt-photo"
+                  placeholder="Upload your recipt"
+                  required
+                />
               </div>
-              
+
               <div class="form-btns">
-                  <button type="submit" id="upload">Upload Now</button>
-                  <button id="cancel-upload">Cancel</button>
+                <button type="submit" id="upload">Upload Now</button>
+                <button id="cancel-upload">Cancel</button>
               </div>
-  
             </form>
           </div>
 
@@ -110,8 +113,8 @@
                 <h1>Total Income</h1>
 
                 <div class="info">
-                  <h1 id="total">2000.00₹ after Tex</h1>
-                  <p></p>
+                  <h1 id="total">0.00</h1>
+                  <p>$</p>
                 </div>
               </div>
 
@@ -119,24 +122,24 @@
                 <h1>Today's Income</h1>
 
                 <div class="info">
-                  <h1 id="today">200.00₹</h1>
-                  <p></p>
+                  <h1 id="today">0.00</h1>
+                  <p>$</p>
                 </div>
               </div>
               <div class="card-single">
                 <h1>Direct Income</h1>
 
                 <div class="info">
-                  <h1 id="direct">200.00₹</h1>
-                  <p></p>
+                  <h1 id="direct">0.00</h1>
+                  <p>$</p>
                 </div>
               </div>
               <div class="card-single">
                 <h1>Level Income</h1>
 
                 <div class="info">
-                  <h1 id="level">200.00₹</h1>
-                  <p></p>
+                  <h1 id="level">0.00</h1>
+                  <p>$</p>
                 </div>
               </div>
             </div>
@@ -176,45 +179,33 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="container">
-          <div class="panel">
-            <button id="totalTeamBtn">Total Team List</button>
-            <button id="activeTeamBtn">Total Active Team List</button>
-            <button id="directTeamBtn">Direct Team List</button>
-          </div>
-          <div class="data-table">
-            <table class="user-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody id="table">
-                <tr>
-                  <td>1</td>
-                  <td>john_doe</td>
-                  <td>john@example.com</td>
-                  <td>New York</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>john_doe</td>
-                  <td>john@example.com</td>
-                  <td>New York</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="pagination">
-              <button id="prev">Previous Page</button>
-              <button id="now">4</button>
-              <button id="next">Next Page</button>
-            </div>
+            <!-- <div class="container"> -->
+              <div class="panel">
+                <button id="totalTeamBtn">My Team List</button>
+                <button id="activeTeamBtn">Active Team List</button>
+                <button id="directTeamBtn">Direct Team List</button>
+              </div>
+              <div class="data-table">
+                <table class="user-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Joining Date</th>
+                      <th>Plan Type</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table">
+                  </tbody>
+                </table>
+                <!-- <div class="pagination">
+                  <button id="prev">Previous Page</button>
+                  <button id="now">4</button>
+                  <button id="next">Next Page</button>
+                </div> -->
+              </div>
+            <!-- </div> -->
           </div>
         </div>
       </section>
@@ -243,8 +234,9 @@
       </div>
     </footer>
 
+    <script src="/js/common/header.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="/js/user/main.js"></script>
-    <script src="/js/common/header.js"></script>
+ 
   </body>
 </html>

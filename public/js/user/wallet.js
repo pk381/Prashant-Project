@@ -45,10 +45,13 @@ document.getElementById("widthdraw").addEventListener("click", async (e) => {
   try {
     let name = document.getElementById("name").value;
     let amount = document.getElementById("amount").value;
+    let cryptoId = document.getElementById("cryptoId").value;
+
 
     let obj = {
       name: name,
       amount: amount,
+      cryptoId: cryptoId
     };
 
     const res = await axios.post(
@@ -116,9 +119,14 @@ function showHistory(member, table) {
     )
   );
 
+  let status = document.createElement("td");
+  status.appendChild(document.createTextNode(member.status));
+
   tr.appendChild(id);
   tr.appendChild(joiningDate);
+  tr.appendChild(status);
   tr.appendChild(amount);
+
 
   table.appendChild(tr);
 }

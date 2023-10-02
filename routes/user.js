@@ -19,6 +19,10 @@ router.post('/change-password', authentication.authanticate, userController.chan
 
 router.get('/get-info', authentication.authanticate, userController.getInfo);
 
+router.get('/image/:userId', userController.getImage);
 
+router.post('/image', authentication.authanticate, userController.uploadImage);
+
+router.post('/upgrade', authentication.authanticate, userController.upgradePlan);
 
 module.exports = router;

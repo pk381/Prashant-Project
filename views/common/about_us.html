@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us - Your Creative Website</title>
-    <link rel="stylesheet" href="../public/css/main.css" />
-    <link rel="stylesheet" href="../public/css/mobile_view.css" />
+    <link rel="stylesheet" href="/css/common/main.css" />
+    <link rel="stylesheet" href="/css/common/header_and_footer.css">
+    <link rel="stylesheet" href="/css/common/form.css">
+
   </head>
   <body>
     <header>
@@ -17,29 +19,7 @@
         </div>
       </div>
 
-      <nav class="navbar">
-        <div class="container">
-          <div class="logo-and-links">
-            <a href="#" class="logo">Your Logo</a>
-            <ul class="nav-links">
-              <li><a href="main.html">Home</a></li>
-              <li><a href="about_us.html">About Us</a></li>
-              <li><a href="contact_us.html">Contact Us</a></li>
-              <li><a href="admin.html">Admin</a></li>
-              <li><a href="user.html">User info</a></li>
-              <li><a href="main.html">User Dashboard</a></li>
-              <li><a href="members.html">All Members</a></li>
-
-            </ul>
-          </div>
-
-          <div class="user-button">
-            <button>
-              <a href="">Prashant Kumar</a>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <nav class="navbar" id="navbar"></nav>
     </header>
 
     <main>
@@ -70,18 +50,7 @@
       </div>
     </footer>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const hamburger = document.querySelector(".hamburger");
-        const mobileMenu = document.querySelector(".nav-links");
+    <script src="/js/common/header.js"></script>
 
-        mobileMenu.classList.toggle("active");
-
-        hamburger.addEventListener("click", function () {
-          mobileMenu.classList.toggle("active");
-          hamburger.classList.toggle("open");
-        });
-      });
-    </script>
   </body>
 </html>
