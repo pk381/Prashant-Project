@@ -220,6 +220,12 @@ document.getElementById("upload").addEventListener("click", async (e) => {
         },
       }
     );
+
+    if(res.data.message === 'got'){
+
+      alert('Recipt is Uploaded successfully');
+      document.getElementById("upload-recipt-form").style.display = "none";
+    }
     
   } catch (err) {
     console.log(err);

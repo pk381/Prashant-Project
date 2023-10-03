@@ -222,10 +222,11 @@ async function updateLevel(userId, amount, level) {
       return;
     }
 
-    const earning = await Earning.findOne({
-      where: { userId: userId },
-      attributes: ["level"],
-    });
+    const earning = await Earning.findOne({where: { userId: userId }});
+
+    if(!earning){
+      return;
+    }
 
     earning.level += amount;
 
@@ -233,7 +234,7 @@ async function updateLevel(userId, amount, level) {
 
     await updateLevel(user.underId, amount, level + 1);
   } catch (err) {
-    console.log(err);
+    console.log("err in updating level income-------",err);
   }
 }
 exports.upgradePlan = async (req, res) => {
@@ -244,12 +245,9 @@ exports.upgradePlan = async (req, res) => {
       where: { userId: req.user.underId },
     });
 
-    console.log(parentEarning);
-
     const available = earning.total - earning.widthdrawl;
 
     if (req.user.planType === null) {
-      console.log("nulllllllllllllllll");
       res.status(201).json({ message: "not" });
     } else if (req.user.planType === "royal") {
       res.status(201).json({ message: "royal" });
