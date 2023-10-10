@@ -96,6 +96,16 @@
   background-color: rgb(250, 167, 167);
 }
 
+.boost{
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.boost button{
+  height: fit-content;
+  width: fit-content;
+}
+
 
 @media (max-width:750px){
 

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/user/dashboard.css" />
     <link rel="stylesheet" href="/css/common/table.css" />
     <link rel="stylesheet" href="/css/common/form.css" />
-
   </head>
 
   <body>
@@ -39,8 +38,9 @@
                   <div id="plan">
                     <h1>10.00$</h1>
                     <p id="discription">
-                      In this plan Joining fee will be 10.00 dollars and after that
-                      if you add two people with the same plan you will get rewards daily and monthly.
+                      In this plan Joining fee will be 10.00 dollars and after
+                      that if you add two people with the same plan you will get
+                      rewards daily and monthly.
                     </p>
                   </div>
                   <img id="qr-code" src="/css/user/photo.jpg" alt="" />
@@ -144,6 +144,35 @@
               </div>
             </div>
 
+            <div class="cards income">
+              <div class="card-single boost">
+                <div>
+                  <h1>Boost Income</h1>
+                  <div class="info">
+                    <h1 id="boost">0.00</h1>
+                    <p>$</p>
+                  </div>
+                </div>
+                <button id="boost-income">Join BoostBoard</button>
+              </div>
+
+              <div class="card-single">
+                <h1>Daily Club Income</h1>
+                <div class="info">
+                  <h1 id="dailyClub">0.00</h1>
+                  <p>$</p>
+                </div>
+              </div>
+
+              <div class="card-single">
+                <h1>AutoPool Income</h1>
+                <div class="info">
+                  <h1 id="autoPool">0.00</h1>
+                  <p>$</p>
+                </div>
+              </div>
+            </div>
+
             <div class="cards team">
               <div class="card-single">
                 <h1>Total Team Members</h1>
@@ -181,30 +210,29 @@
             </div>
 
             <!-- <div class="container"> -->
-              <div class="panel">
-                <button id="totalTeamBtn">My Team List</button>
-                <button id="activeTeamBtn">Active Team List</button>
-                <button id="directTeamBtn">Direct Team List</button>
-              </div>
-              <div class="data-table">
-                <table class="user-table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Joining Date</th>
-                      <th>Plan Type</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table">
-                  </tbody>
-                </table>
-                <!-- <div class="pagination">
+            <div class="panel">
+              <button id="totalTeamBtn">My Team List</button>
+              <button id="activeTeamBtn">Active Team List</button>
+              <button id="directTeamBtn">Direct Team List</button>
+            </div>
+            <div class="data-table">
+              <table class="user-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Joining Date</th>
+                    <th>Plan Type</th>
+                  </tr>
+                </thead>
+                <tbody id="table"></tbody>
+              </table>
+              <!-- <div class="pagination">
                   <button id="prev">Previous Page</button>
                   <button id="now">4</button>
                   <button id="next">Next Page</button>
                 </div> -->
-              </div>
+            </div>
             <!-- </div> -->
           </div>
         </div>
@@ -237,6 +265,5 @@
     <script src="/js/common/header.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="/js/user/main.js"></script>
- 
   </body>
 </html>

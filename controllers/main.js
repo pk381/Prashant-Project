@@ -1,11 +1,13 @@
 const path = require("path");
 const rootDir = require("../util/path");
+
 const User = require("../models/user");
 const Earning = require("../models/earning");
 const WidthdrawlRequest = require("../models/widthdrawlRequest");
 const UpgradeRequest = require("../models/upgradeRequest");
+const BoostDetails = require("../models/boostDetails");
+const BoostBoard = require("../models/boostBoard");
 
-// const { Op } = require("sequelize");
 exports.getMain = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views/user", "dashboard.html"));
 };
@@ -25,11 +27,10 @@ exports.getEarnings = async (req, res) => {
 };
 
 async function getTotalTeam(userId) {
-
   try {
     let children = await User.findAll({
       where: { underId: userId },
-      attributes: ["id", "name", "planType", "createdAt"]
+      attributes: ["id", "name", "planType", "createdAt"],
     });
 
     let array = [...children];
@@ -54,12 +55,10 @@ exports.getMembers = async (req, res) => {
       attributes: ["id", "name", "planType", "createdAt"],
     });
 
-    res
-      .status(201)
-      .json({
-        message: "got",
-        members: { team: team, directTeam: directTeam },
-      });
+    res.status(201).json({
+      message: "got",
+      members: { team: team, directTeam: directTeam },
+    });
   } catch (err) {
     console.log(err);
   }
@@ -69,15 +68,13 @@ exports.getWalletInfo = async (req, res) => {
   try {
     const earning = await Earning.findOne({ where: { userId: req.user.id } });
 
-    res
-      .status(201)
-      .json({
-        message: "got",
-        wallet: {
-          available: earning.total - earning.widthdrawl,
-          widthdrawl: earning.widthdrawl,
-        },
-      });
+    res.status(201).json({
+      message: "got",
+      wallet: {
+        available: earning.total - earning.widthdrawl,
+        widthdrawl: earning.widthdrawl,
+      },
+    });
   } catch (err) {
     console.log(err);
   }
@@ -86,7 +83,7 @@ exports.getWalletInfo = async (req, res) => {
 exports.widthdrawlRequest = async (req, res) => {
   try {
     const request = await WidthdrawlRequest.create({
-      name: req.body.name,
+      name: req.user.name,
       amount: parseFloat(req.body.amount),
       status: "PENDING",
       cryptoId: req.body.cryptoId,
@@ -122,7 +119,7 @@ exports.joiningRequest = async (req, res) => {
       name: info.name,
       amount: parseFloat(info.amount),
       transactionId: info.transactionId,
-      status: 'PENDING',
+      status: "PENDING",
       photo: file,
       userId: req.user.id,
     });
@@ -142,6 +139,84 @@ exports.getImage = async (req, res) => {
 
     // res.setHeader('Content-Type', 'image/jpg')
     res.send(upgradeRequest.photo);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+async function addToBoostBoard(user) {
+  try {
+    const boostDetails = await BoostDetails.findOne({
+      where: { planType: user.planType },
+    });
+
+    if (boostDetails.parent === null) {
+       
+      await BoostBoard.create({
+        planType: user.planType,
+        nodeNo: 0,
+        userId: user.id,
+        parent: null,
+        leftChild: null,
+        righChild: null,
+      });
+
+      boostDetails.parent = 0;
+      boostDetails.lastChild = 0;
+
+      await boostDetails.save();
+    } else {
+      const parent = await BoostBoard.findOne({
+        where: { planType: user.planType, nodeNo: boostDetails.parent },
+      });
+
+      if (boostDetails.lastChild % 2 === 0) {
+        parent.leftChild = boostDetails.lastChild + 1;
+
+        await BoostBoard.create({
+          planType: user.planType,
+          nodeNo: boostDetails.lastChild + 1,
+          userId: user.id,
+          parent: boostDetails.parent,
+          leftChild: null,
+          righChild: null,
+        });
+
+        boostDetails.lastChild = boostDetails.lastChild + 1;
+
+        await boostDetails.save();
+        await parent.save();
+      } else {
+        parent.righChild = boostDetails.lastChild + 1;
+
+        await BoostBoard.create({
+          planType: user.planType,
+          nodeNo: boostDetails.lastChild + 1,
+          userId: user.id,
+          parent: boostDetails.parent,
+          leftChild: null,
+          righChild: null,
+        });
+
+        boostDetails.lastChild = boostDetails.lastChild + 1;
+        boostDetails.parent += 1;
+
+        await parent.save();
+        await boostDetails.save();
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.joinBoostBoard = async (req, res) => {
+  try {
+
+    await addToBoostBoard(req.user);
+
+    res.status(201).json({message: 'done'});
+
   } catch (err) {
     console.log(err);
   }

@@ -43,6 +43,7 @@ else{
           <li><a href="/page/about-us">About Us</a></li>
           <li><a href="/page/contact-us">Contact Us</a></li>
           <li><a href="/admin/request">Requests</a></li>
+          <li><a href="/admin/search-and-update">Search Board</a></li>
         </ul>
       </div>
       <div class="user-button">

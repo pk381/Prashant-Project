@@ -231,3 +231,26 @@ document.getElementById("upload").addEventListener("click", async (e) => {
     console.log(err);
   }
 });
+
+
+// boost board 
+
+
+document.getElementById('boost-income').addEventListener('click', async(e)=>{
+
+  e.preventDefault();
+  try{
+
+    const res = await axios.get(
+      "http://localhost:4000/main/join-boost-board",{
+        headers: { Authorization: token}
+      }
+    );
+
+    console.log(res.data.message);
+
+  }
+  catch(err){
+    console.log(err);
+  }
+});

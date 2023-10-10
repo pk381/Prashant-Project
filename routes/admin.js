@@ -10,6 +10,8 @@ router.post('/login', adminController.postLogin);
 
 router.get('/main', adminController.getMain);
 
+router.get('/search-and-update', adminController.getSearch);
+
 router.get('/request', adminController.requestPage);
 
 router.get('/joining-requests', adminController.joiningRequests);
@@ -24,6 +26,9 @@ router.get('/tree-data/:nodeId',adminController.getTree);
 
 router.get('/company-info', authentication.authanticate, adminController.getInfo);
 router.get('/members-info', authentication.authanticate, adminController.getMemberInfo);
+
+router.post('/search-users', authentication.authanticate, adminController.searchUsers);
+router.post('/update-user', authentication.authanticate, adminController.updateUser);
 
 
 module.exports = router;

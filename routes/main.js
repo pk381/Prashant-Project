@@ -21,6 +21,8 @@ router.post('/widthdrawl-request', authantication.authanticate, mainController.w
 
 router.post('/joining-request', authantication.authanticate, mainController.joiningRequest);
 
+router.get('/join-boost-board', authantication.authanticate, mainController.joinBoostBoard);
+
 router.get('/get-image/:requestId', mainController.getImage);
 
 module.exports = router;

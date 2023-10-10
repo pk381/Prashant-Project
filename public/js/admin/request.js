@@ -129,8 +129,6 @@ function showRequest(request, type) {
       document.getElementById("request-info").style.display = "none";
 
     });
-
-    
   };
 
   newMembers.appendChild(tr);

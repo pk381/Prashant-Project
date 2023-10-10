@@ -20,6 +20,9 @@ const Referral = require('./models/referral');
 const WidthdrawlRequest = require('./models/widthdrawlRequest');
 const UpgrageRequest = require('./models/upgradeRequest');
 
+const BoostDetails = require('./models/boostDetails');
+const BoostBoard = require('./models/boostBoard');
+
 const Admin = require('./models/admin');
 const Company = require('./models/company');
 
@@ -60,7 +63,7 @@ UpgrageRequest.belongsTo(User);
 
 // const updateAll = require('./util/updateDatabase');
 
-// updateAll.updateUser();
+// updateAll.createBoostBoardDetails();
 // updateAll.createDailyClub();
 
 

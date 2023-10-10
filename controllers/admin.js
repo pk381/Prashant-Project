@@ -20,6 +20,10 @@ exports.getLogin = (req, res) => {
   res.sendFile(path.join(rootDir, "views/admin", "admin_login.html"));
 };
 
+exports.getSearch = (req, res) => {
+  res.sendFile(path.join(rootDir, "views/admin", "searchAndModify.html"));
+};
+
 exports.getTreePage = (req, res) => {
   res.sendFile(path.join(rootDir, "views", "tree.html"));
 };
@@ -29,7 +33,6 @@ exports.requestPage = (req, res) => {
 };
 
 exports.getMain = async (req, res) => {
-
   // const newCompany = await Company.create({
   //     name: 'Prashant Company',
   //     earningInLifetime: 0,
@@ -61,7 +64,7 @@ exports.postLogin = async (req, res) => {
             admin: {
               name: admin.name,
               email: admin.email,
-              type: 'admin'
+              type: "admin",
             },
             message: "loginSuccessfully",
             token: generateToken(admin.id),
@@ -78,44 +81,41 @@ exports.postLogin = async (req, res) => {
 
 exports.getInfo = async (req, res) => {
   try {
-    const allUser = await User.findAll({attributes: ['planType', 'createdAt']});
+    const allUser = await User.findAll({
+      attributes: ["planType", "createdAt"],
+    });
 
     let allActive = 0;
     let notActive = 0;
     let notActiveInMonth = 0;
     let allActiveInMonth = 0;
 
-    allUser.forEach(user => {
-
+    allUser.forEach((user) => {
       let date = new Date();
       date = new Date(`${date.getFullYear()}/${date.getMonth()}/01`);
 
-      if(user.planType === null){
-
-        if(user.createdAt >= date && user.createdAt <= new Date()){
-
-          notActiveInMonth ++;
+      if (user.planType === null) {
+        if (user.createdAt >= date && user.createdAt <= new Date()) {
+          notActiveInMonth++;
         }
         notActive++;
-      }
-      else{
-
-        if(user.createdAt >= date && user.createdAt <= new Date()){
-          allActiveInMonth ++;
+      } else {
+        if (user.createdAt >= date && user.createdAt <= new Date()) {
+          allActiveInMonth++;
         }
         allActive++;
       }
-      
     });
 
-
-    res.status(200).json({ message: "got", info: {
-      allActive: allActive,
-      allActiveInMonth: allActiveInMonth,
-      notActive: notActive,
-      notActiveInMonth: notActiveInMonth
-    } });
-
+    res.status(200).json({
+      message: "got",
+      info: {
+        allActive: allActive,
+        allActiveInMonth: allActiveInMonth,
+        notActive: notActive,
+        notActiveInMonth: notActiveInMonth,
+      },
+    });
   } catch (err) {
     console.log(err);
   }
@@ -173,7 +173,14 @@ exports.joiningRequests = async (req, res) => {
   try {
     const requests = await UpgradeRequest.findAll({
       where: { status: "PENDING" },
-      attributes: ["id", "userId", 'name', "amount", "transactionId", "createdAt"],
+      attributes: [
+        "id",
+        "userId",
+        "name",
+        "amount",
+        "transactionId",
+        "createdAt",
+      ],
     });
 
     res.status(201).json({ message: "got", requests: requests });
@@ -185,8 +192,8 @@ exports.joiningRequests = async (req, res) => {
 exports.widthdrawlRequests = async (req, res) => {
   try {
     const requests = await WidthdrawlRequest.findAll({
-      where: {status: "PENDING" },
-      attributes: ["id", "userId", 'name', "amount", "cryptoId", "createdAt"]
+      where: { status: "PENDING" },
+      attributes: ["id", "userId", "name", "amount", "cryptoId", "createdAt"],
     });
 
     res.status(201).json({ message: "got", requests: requests });
@@ -200,11 +207,12 @@ exports.updateWidthdrawlRequest = async (req, res) => {
     const request = await WidthdrawlRequest.findByPk(req.body.id);
 
     if (req.body.status === "APPROVED") {
-
       request.status = "APPROVED";
       await request.save();
 
-      const earning = await Earning.findOne({where: {userId: request.userId}});
+      const earning = await Earning.findOne({
+        where: { userId: request.userId },
+      });
       earning.widthdrawl += request.amount;
       await earning.save();
 
@@ -221,7 +229,6 @@ exports.updateWidthdrawlRequest = async (req, res) => {
 
 exports.updateJoiningRequest = async (req, res) => {
   try {
-
     const request = await UpgradeRequest.findByPk(req.body.id);
 
     if (req.body.status === "APPROVED") {
@@ -230,7 +237,7 @@ exports.updateJoiningRequest = async (req, res) => {
 
       await request.save();
 
-      user.planType = 'starter'
+      user.planType = "starter";
 
       await user.save();
 
@@ -245,3 +252,61 @@ exports.updateJoiningRequest = async (req, res) => {
     console.log("err in updating joining requests", err);
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+
+    console.log(req.body);
+
+    const user = await User.findByPk(parseInt(req.body.id));
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.phone = req.body.phone;
+
+    if(user.password !== req.body.password){
+
+      console.log("chnaging password");
+
+      bcrypt.hash(req.body.password, 10, async (err, hash) => {
+
+        if (err) {
+          console.log(err);
+        } else {
+          user.password = hash;
+        }
+      });
+    }
+
+    // user.isActive = req.user.isActive;
+
+    await user.save();
+    res.status(201).json({ message: "done", user: user});
+  } catch (err) {
+    res.status(201).json({ message: "err"});
+    console.log("error in updateing user info",err);
+  }
+};
+
+exports.searchUsers = async (req, res) => {
+  try {
+    let users;
+    if (req.body.emailOrId === "Id") {
+      users = await User.findAll({where: {id: parseInt(req.body.searchBy)}, attributes:['id', 'name', 'email','phone','password', 'createdAt']});
+    } else if (req.body.emailOrId === "Email") {
+      users = await User.findAll({ where: { email: req.body.searchBy }, attributes:['id', 'name', 'email','phone','password', 'createdAt'] });
+    }
+    else{
+      users = await User.findAll({ where: {
+        name:{
+          [Op.like]: `%${req.body.searchBy}%`
+        }
+        }, attributes:['id', 'name', 'email','phone','password', 'createdAt']});
+    }
+
+    res.status(201).json({ message: "got", users: users });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
