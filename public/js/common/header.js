@@ -18,10 +18,13 @@ if (admin.type === "user") {
       <div class="logo-and-links">
         <a href="#" class="logo">Your Logo</a>
         <ul class="nav-links">
-          <li><a href="/main/">Home</a></li>
+          <li><a href="/main/">Dashboard</a></li>
           <li><a href="/page/about-us">About Us</a></li>
           <li><a href="/page/contact-us">Contact Us</a></li>
+          <li><a href="/user/my-team">My Team</a></li>
           <li><a href="/main/wallet">My Wallet</a></li>
+          <li><a href="/main/tree">Team Tree</a></li>
+
         </ul>
       </div>
 
@@ -42,16 +45,19 @@ else{
           <li><a href="/admin/main/">Dashboard</a></li>
           <li><a href="/page/about-us">About Us</a></li>
           <li><a href="/page/contact-us">Contact Us</a></li>
-          <li><a href="/admin/request">Requests</a></li>
+          <li><a href="/admin/request">Requests*</a></li>
           <li><a href="/admin/search-and-update">Search Board</a></li>
+          <li><a href="/admin/tree">Tree</a></li>
+
         </ul>
       </div>
       <div class="user-button">
         <button>
-          <a id="userName" href="/page/user">${admin.name}</a>
+          <a id="userName">${admin.name}</a>
         </button>
       </div>
     </div>`
     ;
 
 }
+

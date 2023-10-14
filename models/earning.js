@@ -15,6 +15,7 @@ const Earning = sequelize.define('earning', {
     dailyClub: Sequelize.FLOAT,
     level: Sequelize.FLOAT,
     boost: Sequelize.FLOAT,
+    autoPool: Sequelize.FLOAT,
     widthdrawl: Sequelize.FLOAT
 
 });

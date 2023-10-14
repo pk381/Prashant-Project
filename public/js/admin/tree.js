@@ -1,59 +1,75 @@
+async function getTree() {
+  console.log("get tree");
+  const result = await axios.get("http://localhost:4000/admin/tree-data/11");
 
-async function getTree(){
+  const treeDOMElement = document.querySelector(".tree");
 
-    console.log("get tree");
-    const result = await axios.get('http://localhost:4000/admin/tree-data/0');
+  treeDOMElement.innerHTML = "";
 
-    const treeDOMElement = document.querySelector('.tree');
-
-    treeDOMElement.innerHTML = '';
-    treeDOMElement.appendChild(showTree(result.data.data));
-
-
+  console.log(result.data.data);
+  treeDOMElement.appendChild(showTree(result.data.data));
 }
 
 getTree();
 
-function showChildren(nodeChildren){
+function showChildren(nodeChildren) {
+  let children = document.createElement("div");
+  children.className = "node_children";
 
-    let children = document.createElement('div');
-    children.className = 'node_children';
+  // console.log(nodeChildren);
 
-    for(let i = 0;i<nodeChildren.length;i++){
-        children.appendChild(showTree(nodeChildren[i]));
-    }
-    return children;
-
+  for (let i = 0; i < nodeChildren.length; i++) {
+    children.appendChild(showTree(nodeChildren[i]));
+  }
+  return children;
 }
 
-function showTree(data){
+function showTree(data) {
 
-    let node = document.createElement('div');
-    node.className = 'node';
+  let node = document.createElement("div");
+  node.className = "node";
 
-    let element = document.createElement('div');
-    element.className = 'node_element';
+  let element = document.createElement("div");
+  element.className = "node_element";
 
-    element.appendChild(document.createTextNode(data.element.name));
+  let details = document.createElement('div');
+  details.className = 'details';
 
-    node.appendChild(element);
-    node.appendChild(showChildren(data.children));
+  let name = document.createElement("p");
+  name.innerText = data.element.name;
 
-    node.onclick = async (e)=>{
+  let id = document.createElement("p");
+  id.innerText = "Id: "+data.element.id;
 
-        e.stopPropagation();
+  const no = data.element.direct !== null ? data.element.direct: 0
+  let team = document.createElement("p");
+  team.innerText = "Team: " + no;
 
-        
-        if(e.target.firstElementChild === null){
+  details.appendChild(name);
+  details.appendChild(id);
+  details.appendChild(team);
 
-            const result = await axios.get('http://localhost:4000/admin/tree-data/'+ data.element.id);
-            
-            let parent = e.target.parentElement;
-            parent.innerHTML = '';
-            parent.appendChild(showTree(result.data.data));
-        }
+  element.appendChild(details);
+  node.appendChild(element);
 
-    }
+  node.appendChild(element);
+  node.appendChild(showChildren(data.children));
 
-    return node;
+  // node.onclick = async (e) => {
+  //   e.stopPropagation();
+
+  //   // console.log(e.target.parentElement.parentElement);
+
+  //   if (e.target.firstElementChild === null) {
+  //     const result = await axios.get(
+  //       "http://localhost:4000/admin/tree-data/" + data.element.id
+  //     );
+
+  //     let parent = e.target.parentElement;
+  //     parent.innerHTML = "";
+  //     parent.appendChild(showTree(result.data.data));
+  //   }
+  // };
+
+  return node;
 }

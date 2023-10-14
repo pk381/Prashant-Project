@@ -27,6 +27,9 @@ const User = sequelize.define('user', {
     planType: Sequelize.DataTypes.STRING,
     photo: Sequelize.DataTypes.BLOB('long'),
     direct: Sequelize.DataTypes.INTEGER,
+    isActive: Sequelize.DataTypes.BOOLEAN,
+    side: Sequelize.DataTypes.STRING,
+    autoPool: Sequelize.DataTypes.INTEGER,
     underId: Sequelize.DataTypes.INTEGER
 
 });

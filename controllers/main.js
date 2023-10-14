@@ -16,6 +16,10 @@ exports.getWallet = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views/user", "wallet.html"));
 };
 
+exports.getTreePage = (req, res, next) => {
+  res.sendFile(path.join(rootDir, "views/user", "tree.html"));
+};
+
 exports.getEarnings = async (req, res) => {
   try {
     let earning = await Earning.findOne({ where: { userId: req.user.id } });
@@ -151,7 +155,6 @@ async function addToBoostBoard(user) {
     });
 
     if (boostDetails.parent === null) {
-       
       await BoostBoard.create({
         planType: user.planType,
         nodeNo: 0,
@@ -212,11 +215,51 @@ async function addToBoostBoard(user) {
 
 exports.joinBoostBoard = async (req, res) => {
   try {
-
     await addToBoostBoard(req.user);
 
-    res.status(201).json({message: 'done'});
+    res.status(201).json({ message: "done" });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
+exports.userImage = async (req, res) => {
+  try {
+    const id = req.params.userId;
+
+    const user = await User.findByPk(id, {
+      attributes: ["photo"],
+    });
+    res.send(user.photo);
+  } catch (err) {
+    console.log("err in geting user image", err);
+  }
+};
+
+exports.getTree = async (req, res) => {
+  async function createTreeData(nodeId) {
+    const element = await User.findOne({ where: { id: nodeId } });
+    let children = await User.findAll({ where: { underId: nodeId } });
+
+    if (children.length === 0) {
+      return { element, children: [] };
+    } else {
+      const childs = [];
+
+      for (let i = 0; i < children.length; i++) {
+        const child = await createTreeData(children[i].id);
+
+        childs.push(child);
+      }
+      return { element, children: childs };
+    }
+  }
+
+  try {
+    const nodeId = parseInt(req.params.nodeId);
+    const data = await createTreeData(nodeId);
+
+    res.status(201).json({ message: "got", data: data });
   } catch (err) {
     console.log(err);
   }

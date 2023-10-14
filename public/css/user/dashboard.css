@@ -1,25 +1,48 @@
 /* plan */
-.cards{
+.cards {
   margin: 20px auto;
   width: 100%;
 }
 
-#before{
+/* user info */
+.user-info {
+  border: 1px solid rgb(230, 223, 223);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(232, 241, 250);
+}
+
+#details {
+  margin: 0px 40px;
+}
+
+#image {
+  width: 140px;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 5px;
+  height: 140px;
+  margin-right: 40px;
+}
+#before {
   display: flex;
   /* border: 1px solid black; */
   flex-direction: column;
 }
 
-#upload-recipt-form{
+#upload-recipt-form {
   display: none;
 }
 
-#discription{
+#discription {
   /* border: 1px solid black; */
   max-width: 700px;
 }
 
-#qr-code{
+#qr-code {
   width: 100px;
   height: 100px;
   margin: 10px 0px;
@@ -63,59 +86,57 @@
 }
 
 /* table panel */
-.panel{
+.panel {
   width: 100%;
   margin: 10px 0px;
 }
-.panel button{
+.panel button {
   background-color: #104dd1;
   color: white;
   border: 1px solid transparent;
   border-radius: 8px;
   box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1rem;
   padding: 5px 10px;
   margin: 5px 0px;
 }
 
-.panel button:hover{
+.panel button:hover {
   background-color: #719efd;
 }
 
-.team .card-single{
+.team .card-single {
   background-color: rgb(255, 255, 172);
 }
 
-
-.team .card-single:nth-child(3){
+.team .card-single:nth-child(3) {
   background-color: rgb(47, 255, 172);
 }
 
-.team .card-single:nth-child(4){
+.team .card-single:nth-child(4) {
   background-color: rgb(250, 167, 167);
 }
 
-.boost{
+.boost {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.boost button{
+.boost button {
   height: fit-content;
   width: fit-content;
 }
 
-
-@media (max-width:750px){
-
-  .form{
+@media (max-width: 750px) {
+  .form {
     width: 90%;
   }
 
-  .panel button{
+  .panel button {
     border-radius: 5px;
-    font-size: .8rem;
+    font-size: 0.8rem;
     padding: 4px 4px;
   }
 
@@ -126,7 +147,7 @@
     align-items: center;
   }
 
-  .plan{
+  .plan {
     height: fit-content;
     width: 90%;
   }
@@ -134,5 +155,14 @@
   .buy button {
     width: 70%;
   }
-
+  
+  #details {
+    margin: 0px 10px;
+  }
+  
+  #image {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
 }

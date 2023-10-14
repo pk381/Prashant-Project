@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/common/main.css" />
     <link rel="stylesheet" href="/css/common/cards.css" />
     <link rel="stylesheet" href="/css/user/dashboard.css" />
-    <link rel="stylesheet" href="/css/common/table.css" />
     <link rel="stylesheet" href="/css/common/form.css" />
   </head>
 
@@ -29,6 +28,16 @@
       <section class="main-section">
         <div class="container">
           <h1>Dashboard</h1>
+
+          <div class="user-info">
+            <div id="details">
+              <h2 id="id">User Id: M11</h2>
+              <h2 id="user-name">Name: Prabhat Kumar</h2>
+              <p id="Plan-type">Active Rank: Sararter</p>
+            </div>
+
+            <img id="image" src="/css/user/photo.jpg" alt="Nothing To Show" />
+          </div>
 
           <div id="before">
             <div class="cards">
@@ -52,6 +61,7 @@
               </div>
             </div>
 
+            <div id="form-contact">
             <form
               class="form"
               id="upload-recipt-form"
@@ -84,7 +94,7 @@
                   type="text"
                   id="transactionId"
                   name="transactionId"
-                  placeholder="Enter transaction Id"
+                  placeholder="Enter USDT TRC20 Id"
                   required
                 />
               </div>
@@ -105,6 +115,7 @@
                 <button id="cancel-upload">Cancel</button>
               </div>
             </form>
+          </div>
           </div>
 
           <div id="after">
@@ -153,7 +164,7 @@
                     <p>$</p>
                   </div>
                 </div>
-                <button id="boost-income">Join BoostBoard</button>
+                <button id="boost-income">Join</button>
               </div>
 
               <div class="card-single">
@@ -171,69 +182,15 @@
                   <p>$</p>
                 </div>
               </div>
-            </div>
-
-            <div class="cards team">
-              <div class="card-single">
-                <h1>Total Team Members</h1>
-
-                <div class="info">
-                  <h1 id="totalTeam">8</h1>
-                  <p>in Lifetime</p>
-                </div>
-              </div>
 
               <div class="card-single">
-                <h1>Direct Referral</h1>
+                <h1>Bonus Income</h1>
                 <div class="info">
-                  <h1 id="directReffral">8</h1>
-                  <p>in Lifetime</p>
-                </div>
-              </div>
-
-              <div class="card-single">
-                <h1>Active Members</h1>
-
-                <div class="info">
-                  <h1 id="activeMembers">8</h1>
-                  <p>in This Month</p>
-                </div>
-              </div>
-              <div class="card-single">
-                <h1>Non Active Members</h1>
-
-                <div class="info">
-                  <h1 id="notActive">8</h1>
-                  <p>in This Month</p>
+                  <h1 id="bonus">0.00</h1>
+                  <p>$</p>
                 </div>
               </div>
             </div>
-
-            <!-- <div class="container"> -->
-            <div class="panel">
-              <button id="totalTeamBtn">My Team List</button>
-              <button id="activeTeamBtn">Active Team List</button>
-              <button id="directTeamBtn">Direct Team List</button>
-            </div>
-            <div class="data-table">
-              <table class="user-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Joining Date</th>
-                    <th>Plan Type</th>
-                  </tr>
-                </thead>
-                <tbody id="table"></tbody>
-              </table>
-              <!-- <div class="pagination">
-                  <button id="prev">Previous Page</button>
-                  <button id="now">4</button>
-                  <button id="next">Next Page</button>
-                </div> -->
-            </div>
-            <!-- </div> -->
           </div>
         </div>
       </section>

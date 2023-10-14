@@ -89,7 +89,7 @@ function showRequest(request, type) {
 
   btn.onclick = async (e) => {
     let userId = document.getElementById("id");
-    userId.innerText = "User Id: " + request.userId;
+    userId.innerText = "User Id: M" + request.userId;
 
     let name = document.getElementById("requestName");
     name.innerText = "User Name: " + request.name;

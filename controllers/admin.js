@@ -25,7 +25,7 @@ exports.getSearch = (req, res) => {
 };
 
 exports.getTreePage = (req, res) => {
-  res.sendFile(path.join(rootDir, "views", "tree.html"));
+  res.sendFile(path.join(rootDir, "views/admin", "tree.html"));
 };
 
 exports.requestPage = (req, res) => {
@@ -141,29 +141,38 @@ exports.getMemberInfo = async (req, res) => {
 };
 
 exports.getTree = async (req, res) => {
-  async function createTreeData(nodeId) {
-    const element = await User.findOne({ where: { id: nodeId } });
-    let children = await User.findAll({ where: { underId: nodeId } });
+  console.log("geting tree");
 
-    children = children.map((element) => {
-      return { element, children: [] };
+  async function createTreeData(nodeId) {
+    const element = await User.findOne({
+      where: { id: nodeId },
+      attributes: ["id", "name", "direct"],
+    });
+    let children = await User.findAll({
+      where: { underId: nodeId },
+      attributes: ["id", "name", "direct"],
     });
 
-    return { element, children };
+    if (children.length === 0) {
+      return { element, children: [] };
+    } else {
+      const childs = [];
+
+      for (let i = 0; i < children.length; i++) {
+        const child = await createTreeData(children[i].id);
+
+        childs.push(child);
+      }
+      return { element, children: childs };
+    }
   }
 
   try {
     const nodeId = parseInt(req.params.nodeId);
 
-    if (nodeId === 0) {
-      const data = await createTreeData(1);
+    const data = await createTreeData(nodeId);
 
-      res.status(201).json({ message: "got", data: data });
-    } else {
-      const data = await createTreeData(nodeId);
-
-      res.status(201).json({ message: "got", data: data });
-    }
+    res.status(201).json({ message: "got", data: data });
   } catch (err) {
     console.log(err);
   }
@@ -227,15 +236,70 @@ exports.updateWidthdrawlRequest = async (req, res) => {
   }
 };
 
+async function updateAutopool(userId) {
+  try {
+    const user = await User.findByPk(userId);
+    const direct = user.direct;
+
+    if (user.autoPoolLevel >= 1) {
+
+      if (user.autoPoolLevel === 1) {
+
+        if ((direct & ~(direct - 1)) == direct) {
+
+          let power = Math.log(direct) / Math.log(2);
+
+          if (power < 7 && power > 1) {
+            user.Earning.autoPool += Math.pow(2, n - 2);
+          } else if (n >= 7) {
+
+            const idNumber = Math.pow(2, n-7);         
+            user.Earning.autopool += Math.pow(2, n - 2)- idNumber*3;
+
+            user.autoPoolLevel += idNumber;
+          }
+
+        }
+        else{
+
+          const newDirect = direct - 128;
+
+          if ((newDirect & ~(newDirect - 1)) == newDirect) {
+
+            let power = Math.log(newDirect) / Math.log(2);
+  
+            if (power < 7 && power > 1) {
+              user.Earning.autoPool += Math.pow(2, n - 2)*user.autoPoolLevel-1;
+            }
+  
+          }
+        }
+      }
+      
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 exports.updateJoiningRequest = async (req, res) => {
   try {
     const request = await UpgradeRequest.findByPk(req.body.id);
 
     if (req.body.status === "APPROVED") {
+
       request.status = "APPROVED";
+
       const user = await User.findByPk(request.userId);
 
+      const sponserEarning = await Earning.findOne({where: {userId: user.underId}});
+
+      sponserEarning.direct += 3.6;
+
+      await sponserEarning.save();
+
       await request.save();
+
+      await updateAutopool(user.underId);
 
       user.planType = "starter";
 
@@ -255,7 +319,6 @@ exports.updateJoiningRequest = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-
     console.log(req.body);
 
     const user = await User.findByPk(parseInt(req.body.id));
@@ -264,27 +327,26 @@ exports.updateUser = async (req, res) => {
     user.email = req.body.email;
     user.phone = req.body.phone;
 
-    if(user.password !== req.body.password){
-
-      console.log("chnaging password");
+    if (user.password !== req.body.password) {
+      console.log("changing password");
 
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
-
         if (err) {
           console.log(err);
         } else {
           user.password = hash;
+          await user.save();
+          console.log(hash);
         }
       });
+    } else {
+      await user.save();
     }
 
-    // user.isActive = req.user.isActive;
-
-    await user.save();
-    res.status(201).json({ message: "done", user: user});
+    res.status(201).json({ message: "done", user: user });
   } catch (err) {
-    res.status(201).json({ message: "err"});
-    console.log("error in updateing user info",err);
+    res.status(201).json({ message: "err" });
+    console.log("error in updateing user info", err);
   }
 };
 
@@ -292,16 +354,24 @@ exports.searchUsers = async (req, res) => {
   try {
     let users;
     if (req.body.emailOrId === "Id") {
-      users = await User.findAll({where: {id: parseInt(req.body.searchBy)}, attributes:['id', 'name', 'email','phone','password', 'createdAt']});
+      users = await User.findAll({
+        where: { id: parseInt(req.body.searchBy) },
+        attributes: ["id", "name", "email", "phone", "password", "createdAt"],
+      });
     } else if (req.body.emailOrId === "Email") {
-      users = await User.findAll({ where: { email: req.body.searchBy }, attributes:['id', 'name', 'email','phone','password', 'createdAt'] });
-    }
-    else{
-      users = await User.findAll({ where: {
-        name:{
-          [Op.like]: `%${req.body.searchBy}%`
-        }
-        }, attributes:['id', 'name', 'email','phone','password', 'createdAt']});
+      users = await User.findAll({
+        where: { email: req.body.searchBy },
+        attributes: ["id", "name", "email", "phone", "password", "createdAt"],
+      });
+    } else {
+      users = await User.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${req.body.searchBy}%`,
+          },
+        },
+        attributes: ["id", "name", "email", "phone", "password", "createdAt"],
+      });
     }
 
     res.status(201).json({ message: "got", users: users });
@@ -309,4 +379,3 @@ exports.searchUsers = async (req, res) => {
     console.log(err);
   }
 };
-

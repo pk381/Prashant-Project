@@ -5,11 +5,9 @@ const authentication = require('../middelware/auth');
 
 const router = express.Router();
 
-router.get('/sign_up/:underId/:side', userController.getSignUp);
-
 router.post('/sign_up', userController.postSignUp);
 
-router.get('/login', userController.getLogin);
+router.get('/my-team', userController.myTeam);
 
 router.post('/login', userController.postLogin);
 

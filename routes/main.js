@@ -25,4 +25,10 @@ router.get('/join-boost-board', authantication.authanticate, mainController.join
 
 router.get('/get-image/:requestId', mainController.getImage);
 
+router.get('/user-image/:userId', mainController.userImage);
+
+router.get('/tree', mainController.getTreePage);
+
+router.get('/tree-data/:nodeId', mainController.getTree);
+
 module.exports = router;

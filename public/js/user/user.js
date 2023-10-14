@@ -2,10 +2,14 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const token = localStorage.getItem("token");
 
-document.getElementById("planType").innerText = user.planType;
+if(user.planType === null){
+  document.getElementById("planType").innerText = 'Not Active';
+}
+else{
+  document.getElementById("planType").innerText = user.planType;
+}
 
-document.getElementById("linkLeft").innerText = `/sign_up/${user.id}/Left`;
-document.getElementById("linkRight").innerText = `/sign_up/${user.id}/Right`;
+document.getElementById("linkLeft").innerText = "Referal Id: "+`USERM${user.id}`;
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -60,29 +64,38 @@ document.getElementById("change").addEventListener("click", async (e) => {
   try {
     let oldPassword = document.getElementById("oldPassword").value;
     let newPassword = document.getElementById("newPassword").value;
+    let CnewPassword = document.getElementById("cpassword").value;
+
 
     let obj = {
       oldPassword: oldPassword,
       newPassword: newPassword,
     };
 
-    const res = await axios.post(
-      "http://localhost:4000/user/change-password",
-      obj,
-      { headers: { Authorization: token } }
-    );
+    if(CnewPassword === newPassword){
 
-    const message = res.data.message;
+      const res = await axios.post(
+        "http://localhost:4000/user/change-password",
+        obj,
+        { headers: { Authorization: token } }
+        );
+        
+        const message = res.data.message;
+        
+        if (message === "got") {
+          alert("Password Changed Successfully!");
+          getFormBtn.click();
+          // localStorage.setItem("token", res.data.token);
+        } else if (message === "wrong") {
+          alert("Your Old Password is Wrong! Please Enter a Valid Password");
+        } else {
+          alert("Something Went Wrong! Please Try Again");
+        }
+      }
+      else{
 
-    if (message === "got") {
-      alert("Password Changed Successfully!");
-      getFormBtn.click();
-      // localStorage.setItem("token", res.data.token);
-    } else if (message === "wrong") {
-      alert("Your Old Password is Wrong! Please Enter a Valid Password");
-    } else {
-      alert("Something Went Wrong! Please Try Again");
-    }
+        alert('Password Not Match');
+      }
   } catch (err) {
     console.log(err);
   }
