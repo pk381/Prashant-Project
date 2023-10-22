@@ -1,3 +1,10 @@
+
+
+#form-width, #form-activate{
+    display: none;
+}
+
+
 .balance{
     display: flex;
     flex-direction: row;
@@ -10,8 +17,7 @@
     background-color: rgb(250, 164, 164);
 }
 
-
-#widthdrawl-btn:hover h2{
+#widthdrawl-btn:hover h2, #activate-btn:hover h2{
     cursor: pointer;
     color: red;
 }

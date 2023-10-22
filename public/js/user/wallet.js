@@ -1,13 +1,26 @@
 document.getElementById("widthdrawl-btn").addEventListener("click", (e) => {
   e.preventDefault();
-  document.getElementById("form-widthdrawl").style.display = "flex";
+  document.getElementById("form-width").style.display = "flex";
+  document.getElementById("form-activate").style.display = "none";
   console.log("widthdrwal");
+});
+
+document.getElementById("activate-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("form-activate").style.display = "flex";
+  document.getElementById("form-width").style.display = "none";
+  console.log("activate");
 });
 
 document.getElementById("cancel").addEventListener("click", (e) => {
   e.preventDefault();
 
-  document.getElementById("form-widthdrawl").style.display = "none";
+  document.getElementById("form-width").style.display = "none";
+});
+
+document.getElementById("cancel-active").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("form-activate").style.display = "none";
 });
 
 const token = localStorage.getItem("token");
@@ -130,3 +143,44 @@ function showHistory(member, table) {
 
   table.appendChild(tr);
 }
+
+
+// activate frind id
+
+
+document.getElementById('activate').addEventListener('click', async(e)=>{
+
+  e.preventDefault();
+
+  try{
+
+    const obj = {
+      friendId: document.getElementById('friendId').value
+    }
+
+    console.log(obj);
+
+    const res = await axios.post(
+      "http://localhost:4000/main/activate-friend", obj,
+      {
+        headers: { Authorization: token },
+      }
+    );
+
+    const message = res.data.message;
+    
+    if(message === 'done'){
+      alert('Activated Successfully');
+    }
+    else if(message === 'notenough'){
+
+      alert('Not Enough Money');
+    }
+    else if(message === 'notuser'){
+      alert('Please Enter A Valid User ID');
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+})

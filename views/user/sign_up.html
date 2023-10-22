@@ -22,10 +22,10 @@
       <nav class="navbar" id="navbar">
         <div class="container">
           <div class="logo-and-links">
-            <a href="#" class="logo">Your Logo</a>
+            <img id="logo" src="/css/common/logo.jpeg" alt="LOGO" />
             <ul class="nav-links">
-              <li><a href="/page/about-us">About Us</a></li>
-              <li><a href="/page/contact-us">Contact Us</a></li>
+              <li id="aboutbtn">About Us</li>
+              <li id="contactbtn">Contact Us</li>
             </ul>
           </div>
         </div>
@@ -34,7 +34,89 @@
 
     <main>
       <section class="main-section">
-        <div class="container">
+        <div class="container" id="about">
+          <h1 class="title">About Us</h1>
+          <p id="aboutus" class="contant">
+            Lifelineglobal is a best experienced people’s community where they
+            can build social plateform and gives best opportunity to you & your
+            career. You can have everything you want in life, if you will just
+            help enough other people get what they want.”We live by this simple
+            yet powerful philosophy and we invite you to embrace it in order to
+            achieve all of your dreams.
+          </p>
+          <h1 class="title">Vision And Mission</h1>
+
+          <p class="contant">
+            Our vision: To attain globally best standards and become a
+            world-class financial services enterprise – guided by its purpose to
+            move towards a greater degree of sophistication and maturity
+          </p>
+
+          <p class="contant">
+            Our Mission: To help those who are at the bottom of the pyramid. To
+            work with vigour, dedication and innovation to achieve excellence in
+            service, quality, reliability, safety and customer care as the
+            ultimate goal. To earn the trust and confidence of all stakeholders,
+            exceeding their expectations and making the Company a respected
+            household name. To consistently achieve high growth and the highest
+            levels of productivity. To be a technology-driven, efficient and
+            financially sound organisation. To contribute towards community
+            development and nation-building. To be a responsible corporate
+            citizen nurturing human values and concern for society, the
+            environment and, above all, the people. To promote a work culture
+            that fosters individual growth, team spirit and creativity to
+            overcome challenges and attain goals. To encourage ideas, talent and
+            value systems. To uphold the guiding principles of trust, integrity
+            and transparency in all aspects of interactions and dealings.
+          </p>
+
+          <h1 class="title">What is crypto currency?</h1>
+
+          <p class="contant">
+            A cryptocurrency is a type of digital asset that is based on a
+            network that spans a large number of computers. These can exist
+            outside the control of governments and central authorities because
+            of their decentralised structure.
+          </p>
+        </div>
+
+        <div class="container" id="contact">
+
+          <div class="panel">
+            <button >Contact Form</button>
+          </div>
+            <form class="signup-form">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="cname"
+                  name="cname"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="email"
+                  id="cemail"
+                  name="cemail"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <textarea id="message" name="message" required placeholder="Message"></textarea>
+              </div>
+
+              <div class="form-btns">
+                <button type="submit" id="sendmsg">Send Message</button>
+              </div>
+            </form>
+        </div>
+
+        <div class="container" id="signlogin">
           <div class="panel">
             <button id="panel-sign-up">Sign Up</button>
             <button id="panel-login">Login</button>

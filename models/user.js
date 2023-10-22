@@ -30,7 +30,9 @@ const User = sequelize.define('user', {
     isActive: Sequelize.DataTypes.BOOLEAN,
     side: Sequelize.DataTypes.STRING,
     autoPool: Sequelize.DataTypes.INTEGER,
+    boost: Sequelize.DataTypes.INTEGER,
     underId: Sequelize.DataTypes.INTEGER
+
 
 });
 

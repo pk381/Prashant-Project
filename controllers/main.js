@@ -86,15 +86,21 @@ exports.getWalletInfo = async (req, res) => {
 
 exports.widthdrawlRequest = async (req, res) => {
   try {
-    const request = await WidthdrawlRequest.create({
-      name: req.user.name,
-      amount: parseFloat(req.body.amount),
-      status: "PENDING",
-      cryptoId: req.body.cryptoId,
-      userId: req.user.id,
-    });
 
-    res.status(201).json({ message: "got", request: request });
+    if(req.user.isActive === true){
+      const request = await WidthdrawlRequest.create({
+        name: req.user.name,
+        amount: parseFloat(req.body.amount),
+        status: "PENDING",
+        cryptoId: req.body.cryptoId,
+        userId: req.user.id,
+      });
+      res.status(201).json({ message: "got", request: request });
+    }
+    else{
+      res.status(201).json({ message: "notActive"});
+    }
+    
   } catch (err) {
     console.log(err);
   }
@@ -215,9 +221,25 @@ async function addToBoostBoard(user) {
 
 exports.joinBoostBoard = async (req, res) => {
   try {
-    await addToBoostBoard(req.user);
 
-    res.status(201).json({ message: "done" });
+    if(req.user.boost === 0){
+      res.status(201).json({ message: "not available" });
+    }
+    else{
+
+      await addToBoostBoard(req.user);
+      req.user.boost-= 1;
+      await req.user.save();
+
+      res.status(201).json({ message: "done" });
+
+    }
+    
+    
+
+    
+
+    
   } catch (err) {
     console.log(err);
   }
@@ -264,3 +286,42 @@ exports.getTree = async (req, res) => {
     console.log(err);
   }
 };
+
+
+exports.activateFriend = async (req, res) =>{
+  try{
+
+    const earning = await Earning.findOne({where: {userId: req.user.id}});
+
+    console.log('activating');
+
+    if(earning.total > 10){
+
+      const id = parseInt(req.body.friendId.match(/\d+/g)[0]);
+      const user = await User.findByPk(id);
+
+      if(user === null){
+        res.status(201).json({message: 'notuser'});
+      }
+      else{
+
+        user.planType = 'starter';
+
+        earning.total -= 10;
+
+        await earning.save();
+
+        await user.save();
+
+        res.status(201).json({message: 'done'});
+
+      }
+    }
+    else{
+      res.status(201).json({message: 'notenough'});
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+}

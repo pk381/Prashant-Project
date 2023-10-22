@@ -1,10 +1,5 @@
-.form-widthdrawl{
-    display: flex;
-    justify-content: center;
-}
 
-
-#form-contact{
+#form-contact, .form-widthdrawl{
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px 2px;

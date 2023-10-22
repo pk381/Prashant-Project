@@ -31,4 +31,7 @@ router.get('/tree', mainController.getTreePage);
 
 router.get('/tree-data/:nodeId', mainController.getTree);
 
+router.post('/activate-friend', authantication.authanticate, mainController.activateFriend);
+
+
 module.exports = router;

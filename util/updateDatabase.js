@@ -15,7 +15,7 @@ async function updateIncome(per, planType, direct) {
 
     let dailyClub = await DailyClub.findOne({ where: { date: date } });
 
-    let income = (dailyClub.amount * per) / allUser.length;
+    let income = ((dailyClub.amount * per) / allUser.length)*0.9;
 
     allUser.forEach(async (user) => {
       let earning = await Earning.findOne({ where: { userId: user.id } });
@@ -31,11 +31,13 @@ async function updateIncome(per, planType, direct) {
 
 exports.updateDailyClubIncome = async () => {
   try {
-    await updateIncome(0.3, "basic", 2);
-    await updateIncome(0.25, "star", 4);
-    await updateIncome(0.2, "super star", 6);
-    await updateIncome(0.15, "prime", 8);
-    await updateIncome(0.1, "royal", 10);
+
+    await updateIncome(0.25, "starter", 2);
+    await updateIncome(0.20, "basic", 2);
+    await updateIncome(0.15, "star", 4);
+    await updateIncome(0.10, "super star", 6);
+    await updateIncome(0.08, "prime", 8);
+    await updateIncome(0.07, "royal", 10);
   } catch (err) {
     console.log(err);
   }

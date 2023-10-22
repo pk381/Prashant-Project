@@ -1,7 +1,7 @@
 let email = document.getElementById("email"); 
 let password = document.getElementById("password");
 
-document.getElementById("login").addEventListener("click", async (e) => {
+document.getElementById("login-btn").addEventListener("click", async (e) => {
   e.preventDefault();
 
   let obj = {

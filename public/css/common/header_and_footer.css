@@ -1,13 +1,29 @@
-@charset "UTF-8";@import url('https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap');@font-face {
-    font-family: "gaxondrift";
-    src: url("../fonts/gaxondrift.eot");
-    src: url("../fonts/gaxondrift.eot?#iefix") format("embedded-opentype"),url("../fonts/gaxondrift.woff") format("woff");
-    font-weight: normal;
-    font-style: normal
+#logo{
+    width: 40px;
+    height: 40px;
 }
 
-
-
+#about{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.contant{
+    border: 1px solid black;
+    width: 50%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+.title{
+    background-color: #104dd1;
+    color: white;
+    border: 1px solid black;
+    padding: 2px 30px;
+    border-radius: 10px;
+}
 body, ul {
     margin: 0;
     padding: 0;
@@ -90,7 +106,7 @@ body {
 header {
     /* border: 1px solid black; */
     display: flex;
-    background-color: #104dd1;
+    background-color: black;
     padding: 0px 0;
 }
 
@@ -112,7 +128,6 @@ header {
 
 .nav-links {
     display: flex;
-
     margin: 0px 10px;
     list-style: none;
     justify-content: flex-end; 
@@ -179,7 +194,6 @@ header {
         display: flex;
         flex-direction: row;
         align-items: center;
-        background-color: #104dd1;
         padding: 0px 0;
     }
     .navbar{
@@ -228,11 +242,12 @@ header {
     .nav-links li a:hover {
         background-color: #5f6b85;
 
-    } 
+    }
+    .contant{
+        width: 80%;
+    }
     
 }
-
-
 
 /* Footer styles */
 footer {

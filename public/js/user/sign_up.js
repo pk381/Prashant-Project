@@ -1,9 +1,29 @@
+
+document.getElementById('aboutbtn').addEventListener('click', (e)=>{
+
+  e.preventDefault();
+
+  document.getElementById('about').style = 'display: flex';
+  document.getElementById('signlogin').style = 'display: none';
+  document.getElementById('contact').style = 'display: none';
+
+});
+
+document.getElementById('contactbtn').addEventListener('click', (e)=>{
+
+  e.preventDefault();
+
+  document.getElementById('about').style = 'display: none';
+  document.getElementById('signlogin').style = 'display: none';
+  document.getElementById('contact').style = 'display: flex';
+
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const hamburger = document.querySelector(".hamburger");
-    const mobileMenu = document.querySelector(".nav-links");
-  
+    const mobileMenu = document.querySelector(".nav-links"); 
     mobileMenu.classList.toggle("active");
-  
     hamburger.addEventListener("click", function () {
       mobileMenu.classList.toggle("active");
       hamburger.classList.toggle("open");

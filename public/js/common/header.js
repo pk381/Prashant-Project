@@ -16,7 +16,7 @@ if (admin.type === "user") {
   document.getElementById("navbar").innerHTML = `
     <div class="container">
       <div class="logo-and-links">
-        <a href="#" class="logo">Your Logo</a>
+        <img id="logo" src="/css/common/logo2.jpeg" alt="LOGO">
         <ul class="nav-links">
           <li><a href="/main/">Dashboard</a></li>
           <li><a href="/page/about-us">About Us</a></li>
@@ -40,7 +40,7 @@ else{
   document.getElementById("navbar").innerHTML = `
     <div class="container">
       <div class="logo-and-links">
-        <a href="#" class="logo">Your Logo</a>
+        <img id="logo" src="/css/common/logo2.jpeg" alt="LOGO">
         <ul class="nav-links">
           <li><a href="/admin/main/">Dashboard</a></li>
           <li><a href="/page/about-us">About Us</a></li>
