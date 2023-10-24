@@ -68,10 +68,11 @@ UpgrageRequest.belongsTo(User);
 
 
 // syncing database
+const port = 4000;
 sequelize.sync()
 .then(res=>{
 
-    app.listen(4000);
+    app.listen(8443||port);
     console.log("listening")
 }).catch(err=>{
     console.log(err);
