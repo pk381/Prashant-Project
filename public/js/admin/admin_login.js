@@ -10,7 +10,7 @@ document.getElementById("login-btn").addEventListener("click", async (e) => {
   };
 
   try {
-    let res = await axios.post("http://localhost:4000/admin/login", obj);
+    let res = await axios.post("https://prashant-kumar.onrender.com/admin/login", obj);
 
     if (res.data.message === "userNotExist") {
       console.log("user not exist");
