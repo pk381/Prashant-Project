@@ -3,8 +3,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const sequelize = require("./util/database");
 const fileupload = require("express-fileupload");
-// const port = require("portfinder");
-
 const env = require('dotenv');
 
 const app = express();
@@ -65,21 +63,6 @@ UpgrageRequest.belongsTo(User);
 // updateAll.createBoostBoardDetails();
 // updateAll.createDailyClub();
 
-// syncing database
-// const port = 4000;
-
-// port
-//   .getPortPromise()
-//   .then((port) => {
-//     // The 'port' variable now contains an available port number
-
-//     console.log("port----------",port)
-    
-//     // Use the port for your application
-//   })
-//   .catch((err) => {
-//     console.error("Error:", err);
-//   });
 
 const PORT = process.env.PORT;
 sequelize
