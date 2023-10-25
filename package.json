@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.6.0",
     "path": "^0.12.7",
+    "portfinder": "^1.0.32",
     "razorpay": "^2.9.1",
     "sequelize": "^6.32.1",
     "uuid": "^9.0.0"

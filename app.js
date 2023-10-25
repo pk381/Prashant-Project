@@ -1,30 +1,32 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const sequelize = require('./util/database');
-const fileupload = require('express-fileupload');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const sequelize = require("./util/database");
+const fileupload = require("express-fileupload");
+// const port = require("portfinder");
+
+const env = require('dotenv');
 
 const app = express();
 
 // routes
-const userRoute = require('./routes/user');
-const mainRoute = require('./routes/main');
-const pageRoute = require('./routes/page');
-const adminRoute = require('./routes/admin');
-
+const userRoute = require("./routes/user");
+const mainRoute = require("./routes/main");
+const pageRoute = require("./routes/page");
+const adminRoute = require("./routes/admin");
 
 // // database tables
-const User = require('./models/user');
-const Earning = require('./models/earning');
-const Referral = require('./models/referral');
-const WidthdrawlRequest = require('./models/widthdrawlRequest');
-const UpgrageRequest = require('./models/upgradeRequest');
+const User = require("./models/user");
+const Earning = require("./models/earning");
+const Referral = require("./models/referral");
+const WidthdrawlRequest = require("./models/widthdrawlRequest");
+const UpgrageRequest = require("./models/upgradeRequest");
 
-const BoostDetails = require('./models/boostDetails');
-const BoostBoard = require('./models/boostBoard');
+const BoostDetails = require("./models/boostDetails");
+const BoostBoard = require("./models/boostBoard");
 
-const Admin = require('./models/admin');
-const Company = require('./models/company');
+const Admin = require("./models/admin");
+const Company = require("./models/company");
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -34,16 +36,14 @@ app.use(bodyParser.json());
 app.use(fileupload());
 
 // serving routes
-app.use('/user', userRoute);
-app.use('/main', mainRoute);
-app.use('/page', pageRoute);
-app.use('/admin', adminRoute);
+app.use("/user", userRoute);
+app.use("/main", mainRoute);
+app.use("/page", pageRoute);
+app.use("/admin", adminRoute);
 
-
-app.get('/', (req, res, next)=>{
-    res.redirect('/user/sign_up');
+app.get("/", (req, res, next) => {
+  res.redirect("/user/sign_up");
 });
-
 
 // table relations
 
@@ -58,7 +58,6 @@ WidthdrawlRequest.belongsTo(User);
 User.hasOne(UpgrageRequest);
 UpgrageRequest.belongsTo(User);
 
-
 // updating database
 
 // const updateAll = require('./util/updateDatabase');
@@ -66,15 +65,29 @@ UpgrageRequest.belongsTo(User);
 // updateAll.createBoostBoardDetails();
 // updateAll.createDailyClub();
 
-
 // syncing database
-const port = 4000;
-sequelize.sync()
-.then(res=>{
+// const port = 4000;
 
-    app.listen(8443||port);
-    console.log("listening")
-}).catch(err=>{
-    console.log(err);
-})
+// port
+//   .getPortPromise()
+//   .then((port) => {
+//     // The 'port' variable now contains an available port number
 
+//     console.log("port----------",port)
+    
+//     // Use the port for your application
+//   })
+//   .catch((err) => {
+//     console.error("Error:", err);
+//   });
+
+const PORT = process.env.PORT;
+sequelize
+      .sync()
+      .then((res) => {
+        app.listen(4000 || PORT);
+        console.log("listening");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
