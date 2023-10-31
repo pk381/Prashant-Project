@@ -3,7 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const sequelize = require("./util/database");
 const fileupload = require("express-fileupload");
-const env = require('dotenv');
+const env = require("dotenv");
 
 const app = express();
 
@@ -63,14 +63,13 @@ UpgrageRequest.belongsTo(User);
 // updateAll.createBoostBoardDetails();
 // updateAll.createDailyClub();
 
-
 const PORT = process.env.PORT;
 sequelize
-      .sync()
-      .then((res) => {
-        app.listen(4000 || PORT);
-        console.log("listening");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  .sync()
+  .then((res) => {
+    app.listen(4000 || PORT);
+    console.log("listening");
+  })
+  .catch((err) => {
+    console.log(err);
+  });

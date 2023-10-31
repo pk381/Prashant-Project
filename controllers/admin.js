@@ -6,6 +6,7 @@ const Admin = require("../models/admin");
 const User = require("../models/user");
 const Company = require("../models/company");
 const UpgradeRequest = require("../models/upgradeRequest");
+const DailyClub = require('../util/updateDatabase').createDailyClub();
 const WidthdrawlRequest = require("../models/widthdrawlRequest");
 const Earning = require("../models/earning");
 
@@ -78,7 +79,82 @@ exports.postLogin = async (req, res) => {
     console.log(err);
   }
 };
+exports.getEarning = async (req, res) =>{
+  try{
 
+    const allUser = User.findAll();
+
+    for(let i = 0;i<allUser.length;i++){
+      
+    }
+
+    switch (req.user.planType) {
+      case "starter":
+        if (available >= 20) {
+          total = 20;
+          direct = 4;
+          level = 0.4;
+          planType = "basic";
+          update = "yes";
+          DailyClub.amount += 6;
+          DailyClub.basic += 1;
+        }
+        break;
+
+      case "basic":
+        if (available >= 50) {
+          total = 50;
+          direct = 10;
+          level = 1;
+          planType = "star";
+          update = "yes";
+          DailyClub.amount += 15;
+          DailyClub.star += 1;
+        }
+        break;
+
+      case "star":
+        if (available >= 100) {
+          total = 100;
+          direct = 20;
+          level = 2;
+          planType = "super star";
+          update = "yes";
+          DailyClub.amount += 30;
+          DailyClub.superStar += 1;
+        }
+        break;
+
+      case "super star":
+        if (available >= 200) {
+          total = 200;
+          direct = 40;
+          level = 4;
+          planType = "prime";
+          update = "yes";
+          DailyClub.amount += 60;
+          DailyClub.prime += 1;
+        }
+        break;
+
+      case "prime":
+        if (available >= 500) {
+          total = 500;
+          direct = 100;
+          level = 10;
+          planType = "royal";
+          update = "yes";
+          DailyClub.amount += 150;
+          DailyClub.royal += 1;
+        }
+        break;
+    }
+
+  }
+  catch(err){
+    console.log(err);
+  }
+}
 exports.getInfo = async (req, res) => {
   try {
     const allUser = await User.findAll({
@@ -296,6 +372,11 @@ exports.updateJoiningRequest = async (req, res) => {
       sponserEarning.direct += 3.6;
 
       await sponserEarning.save();
+
+      DailyClub.amount += 3;
+      DailyClub.starter += 1;
+
+      await DailyClub.save();
 
       await request.save();
 

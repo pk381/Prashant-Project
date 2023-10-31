@@ -3,7 +3,7 @@
   display: none;
 }
 
-#aboutbtn, #contactbtn{
+#aboutbtn, #contactbtn, #signupbtn{
   color: white;
   font-weight: bold;
   cursor: pointer;

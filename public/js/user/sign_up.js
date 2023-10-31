@@ -1,3 +1,13 @@
+document.getElementById('signupbtn').addEventListener('click', (e)=>{
+
+  e.preventDefault();
+
+  document.getElementById('about').style = 'display: none';
+  document.getElementById('signlogin').style = 'display: flex';
+  document.getElementById('contact').style = 'display: none';
+
+});
+
 
 document.getElementById('aboutbtn').addEventListener('click', (e)=>{
 

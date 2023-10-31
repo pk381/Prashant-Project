@@ -7,6 +7,8 @@ const WidthdrawlRequest = require("../models/widthdrawlRequest");
 const UpgradeRequest = require("../models/upgradeRequest");
 const BoostDetails = require("../models/boostDetails");
 const BoostBoard = require("../models/boostBoard");
+const DailyClub = require('../util/updateDatabase').createDailyClub();
+
 
 exports.getMain = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views/user", "dashboard.html"));
@@ -308,6 +310,9 @@ exports.activateFriend = async (req, res) =>{
         user.planType = 'starter';
 
         earning.total -= 10;
+
+        DailyClub.amount += 6;
+        DailyClub.star += 1;
 
         await earning.save();
 

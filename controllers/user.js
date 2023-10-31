@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 // models
 const User = require("../models/user");
 const Earning = require("../models/earning");
+const DailyClub = require('../util/updateDatabase').createDailyClub();
 
 function generateToken(data) {
   return jwt.sign(data, "secretKey");
@@ -207,10 +208,12 @@ exports.upgradePlan = async (req, res) => {
         case "starter":
           if (available >= 20) {
             total = 20;
-            direct = 10;
+            direct = 4;
             level = 0.4;
             planType = "basic";
             update = "yes";
+            DailyClub.amount += 6;
+            DailyClub.basic += 1;
           }
           break;
 
@@ -221,36 +224,44 @@ exports.upgradePlan = async (req, res) => {
             level = 1;
             planType = "star";
             update = "yes";
+            DailyClub.amount += 15;
+            DailyClub.star += 1;
           }
           break;
 
         case "star":
           if (available >= 100) {
             total = 100;
-            direct = 10;
+            direct = 20;
             level = 2;
             planType = "super star";
             update = "yes";
+            DailyClub.amount += 30;
+            DailyClub.superStar += 1;
           }
           break;
 
         case "super star":
           if (available >= 200) {
             total = 200;
-            direct = 10;
+            direct = 40;
             level = 4;
             planType = "prime";
             update = "yes";
+            DailyClub.amount += 60;
+            DailyClub.prime += 1;
           }
           break;
 
         case "prime":
           if (available >= 500) {
             total = 500;
-            direct = 10;
+            direct = 100;
             level = 10;
             planType = "royal";
             update = "yes";
+            DailyClub.amount += 150;
+            DailyClub.royal += 1;
           }
           break;
       }
@@ -261,9 +272,10 @@ exports.upgradePlan = async (req, res) => {
 
         await earning.save();
         await req.user.save();
+        await DailyClub.save();
 
         if(parentEarning !== null){
-          parentEarning.direct += direct;
+          parentEarning.direct += direct*0.9;
           await parentEarning.save();
         }
 
