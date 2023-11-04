@@ -45,7 +45,7 @@ else{
           <li><a href="/admin/main/">Dashboard</a></li>
           <li><a href="/page/about-us">About Us</a></li>
           <li><a href="/page/contact-us">Contact Us</a></li>
-          <li><a href="/admin/request">Requests*</a></li>
+          <li><a href="/admin/request">Requests</a></li>
           <li><a href="/admin/search-and-update">Search Board</a></li>
           <li><a href="/admin/tree">Tree</a></li>
 

@@ -7,12 +7,44 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const Earning = require("../models/earning");
 const DailyClub = require('../util/updateDatabase').createDailyClub();
+const Company = require("../models/company");
 
 function generateToken(data) {
   return jwt.sign(data, "secretKey");
 }
 
 exports.getSignUpPage = async (req, res) => {
+
+  const admin = await User.findAll();
+
+  if(admin.length === 0){
+    
+    bcrypt.hash('Prabhat123@', 10, async (err, hash)=>{
+      if(err){
+        console.log(err);
+      }
+      else{
+        const user = await User.create({
+          name: 'Admin',
+          email: 'admin@email.com',
+          phone: '70906080202',
+          password: hash
+        });
+
+        await Earning.create({
+          total: 0.0,
+          today: 0.0,
+          direct: 0.0,
+          dailyClub: 0.0,
+          level: 0.0,
+          boost: 0.0,
+          widthdrawl: 0.0,
+          autoPool: 0,
+          userId: user.id,
+        });
+      }
+    });
+  }
   res.sendFile(path.join(rootDir, "views/user", "sign_up.html"));
 };
 
@@ -198,6 +230,8 @@ exports.upgradePlan = async (req, res) => {
       res.status(201).json({ message: "royal" });
     } else {
 
+
+
       let update = "not";
       let direct = 0;
       let total = 0;
@@ -278,6 +312,10 @@ exports.upgradePlan = async (req, res) => {
           parentEarning.direct += direct*0.9;
           await parentEarning.save();
         }
+
+        const company = await Company.findAll();
+        company[0].earningInLifetime += total;
+        await company[0].save();
 
         await updateLevel(req.user.underId, level, 1);
 

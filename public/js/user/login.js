@@ -10,7 +10,7 @@ document.getElementById("login").addEventListener("click", async (e) => {
   };
 
   try {
-    let res = await axios.post("https://prashant-kumar.onrender.com/user/login", obj);
+    let res = await axios.post("http://localhost:4000/user/login", obj);
 
     if (res.data.message === "userNotExist") {
 

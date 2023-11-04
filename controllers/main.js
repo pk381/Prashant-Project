@@ -89,6 +89,8 @@ exports.getWalletInfo = async (req, res) => {
 exports.widthdrawlRequest = async (req, res) => {
   try {
 
+    console.log("-------------------------------------widthdrawl request");
+
     if(req.user.isActive === true){
       const request = await WidthdrawlRequest.create({
         name: req.user.name,

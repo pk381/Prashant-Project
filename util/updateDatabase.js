@@ -1,8 +1,28 @@
 const User = require("../models/user");
 const Earning = require("../models/earning");
 const DailyClub = require("../models/daily_club");
+const Company = require("../models/company");
+
 
 const BoostDetails = require("../models/boostDetails");
+
+exports.createcompany = async () =>{
+  try{
+
+    const comp = await Company.findAll();
+
+    if(comp.length === 0){
+
+      await Company.create({
+        name: 'Digitalmetaone.com'
+
+      })
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+}
 
 async function updateIncome(per, planType, direct) {
   try {
@@ -31,6 +51,7 @@ async function updateIncome(per, planType, direct) {
 
 exports.updateDailyClubIncome = async () => {
   try {
+    setInterval( async () =>{
 
     await updateIncome(0.25, "starter", 2);
     await updateIncome(0.20, "basic", 2);
@@ -38,6 +59,9 @@ exports.updateDailyClubIncome = async () => {
     await updateIncome(0.10, "super star", 6);
     await updateIncome(0.08, "prime", 8);
     await updateIncome(0.07, "royal", 10);
+
+    }, 1000*24*60*60);
+    
   } catch (err) {
     console.log(err);
   }

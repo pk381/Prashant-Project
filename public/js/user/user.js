@@ -14,9 +14,9 @@ document.getElementById("linkLeft").innerText = "Referal Id: "+`USERM${user.id}`
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     document.getElementById("image").src =
-      "https://prashant-kumar.onrender.com/user/image/" + user.id;
+      "http://localhost:4000/user/image/" + user.id;
 
-    const res = await axios.get("https://prashant-kumar.onrender.com/user/get-info", {
+    const res = await axios.get("http://localhost:4000/user/get-info", {
       headers: { Authorization: token },
     });
 
@@ -75,7 +75,7 @@ document.getElementById("change").addEventListener("click", async (e) => {
     if(CnewPassword === newPassword){
 
       const res = await axios.post(
-        "https://prashant-kumar.onrender.com/user/change-password",
+        "http://localhost:4000/user/change-password",
         obj,
         { headers: { Authorization: token } }
         );
@@ -114,7 +114,7 @@ document.getElementById("upload").addEventListener("click", async (e) => {
 
     formData.append("file", userPhoto);
 
-    const res = await axios.post("https://prashant-kumar.onrender.com/user/image", formData, {
+    const res = await axios.post("http://localhost:4000/user/image", formData, {
       headers: { Authorization: token, "Content-Type": "multipart/form-data" },
     });
 
@@ -132,7 +132,7 @@ document.getElementById("upgrade").addEventListener("click", async (e) => {
   e.preventDefault();
   try {
     const res = await axios.post(
-      "https://prashant-kumar.onrender.com/user/upgrade",
+      "http://localhost:4000/user/upgrade",
       {},
       { headers: { Authorization: token } }
     );

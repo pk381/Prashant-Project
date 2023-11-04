@@ -27,7 +27,7 @@ const token = localStorage.getItem("token");
 
 async function getwallet() {
   try {
-    let res = await axios.get("https://prashant-kumar.onrender.com/main/wallet-info", {
+    let res = await axios.get("http://localhost:4000/main/wallet-info", {
       headers: { Authorization: token },
     });
     if (res.data.message === "got") {
@@ -56,19 +56,17 @@ document.getElementById("widthdraw").addEventListener("click", async (e) => {
   e.preventDefault();
 
   try {
-    let name = document.getElementById("name").value;
     let amount = document.getElementById("amount").value;
     let cryptoId = document.getElementById("cryptoId").value;
 
 
     let obj = {
-      name: name,
       amount: amount,
       cryptoId: cryptoId
     };
 
     const res = await axios.post(
-      "https://prashant-kumar.onrender.com/widthdrawl-request",
+      "http://localhost:4000/main/widthdrawl-request",
       obj,
       {
         headers: { Authorization: token },
@@ -84,6 +82,14 @@ document.getElementById("widthdraw").addEventListener("click", async (e) => {
 
       document.getElementById("form-widthdrawl").style.display = "none";
 
+    }else{
+
+      alert(
+        `You are not active user Please contact to Admin`
+      );
+      
+      document.getElementById("form-widthdrawl").style.display = "none";
+
     }
   } catch (err) {
     console.log(err);
@@ -93,7 +99,7 @@ document.getElementById("widthdraw").addEventListener("click", async (e) => {
 async function getHistory() {
   try {
     const res = await axios.get(
-      "https://prashant-kumar.onrender.com/main/widthdrawl-history",
+      "http://localhost:4000/main/widthdrawl-history",
       {
         headers: { Authorization: token },
       }
@@ -161,7 +167,7 @@ document.getElementById('activate').addEventListener('click', async(e)=>{
     console.log(obj);
 
     const res = await axios.post(
-      "https://prashant-kumar.onrender.com/main/activate-friend", obj,
+      "http://localhost:4000/main/activate-friend", obj,
       {
         headers: { Authorization: token },
       }

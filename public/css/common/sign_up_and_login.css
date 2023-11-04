@@ -3,6 +3,15 @@
   display: none;
 }
 
+.space{
+  height: 350px;
+}
+
+.main-section{
+  background: url(/images/background.jpg) no-repeat center center fixed; 
+}
+
+
 #aboutbtn, #contactbtn, #signupbtn{
   color: white;
   font-weight: bold;
@@ -121,8 +130,5 @@ select {
   .container .signup-form {
     border: 1px solid black;
     width: 80%;
-  }
-  .cotant{
-    
   }
 }

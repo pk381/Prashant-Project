@@ -17,7 +17,26 @@ function generateToken(data) {
   return jwt.sign(data, "secretKey");
 }
 
-exports.getLogin = (req, res) => {
+exports.getLogin = async (req, res) => {
+
+  const admin = await Admin.findAll();
+
+  if(admin.length === 0){
+    
+    bcrypt.hash('Prabhat123@', 10, async (err, hash)=>{
+      if(err){
+        console.log(err);
+      }
+      else{
+        await Admin.create({
+          name: 'Admin',
+          email: 'admin@email.com',
+          phone: '70906080202',
+          password: hash
+        })
+      }
+    });
+  }
   res.sendFile(path.join(rootDir, "views/admin", "admin_login.html"));
 };
 
@@ -34,16 +53,6 @@ exports.requestPage = (req, res) => {
 };
 
 exports.getMain = async (req, res) => {
-  // const newCompany = await Company.create({
-  //     name: 'Prashant Company',
-  //     earningInLifetime: 0,
-  //     earningInThisMonth: 0,
-  //     greenMemberInLifetime: 0,
-  //     greenMemberInThisMonth: 0,
-  //     redMemberInLifetime: 0,
-  //     redMemberInThisMonth: 0
-  // });
-
   res.sendFile(path.join(rootDir, "views/admin", "admin.html"));
 };
 
@@ -79,87 +88,14 @@ exports.postLogin = async (req, res) => {
     console.log(err);
   }
 };
-exports.getEarning = async (req, res) =>{
-  try{
 
-    const allUser = User.findAll();
-
-    for(let i = 0;i<allUser.length;i++){
-      
-    }
-
-    switch (req.user.planType) {
-      case "starter":
-        if (available >= 20) {
-          total = 20;
-          direct = 4;
-          level = 0.4;
-          planType = "basic";
-          update = "yes";
-          DailyClub.amount += 6;
-          DailyClub.basic += 1;
-        }
-        break;
-
-      case "basic":
-        if (available >= 50) {
-          total = 50;
-          direct = 10;
-          level = 1;
-          planType = "star";
-          update = "yes";
-          DailyClub.amount += 15;
-          DailyClub.star += 1;
-        }
-        break;
-
-      case "star":
-        if (available >= 100) {
-          total = 100;
-          direct = 20;
-          level = 2;
-          planType = "super star";
-          update = "yes";
-          DailyClub.amount += 30;
-          DailyClub.superStar += 1;
-        }
-        break;
-
-      case "super star":
-        if (available >= 200) {
-          total = 200;
-          direct = 40;
-          level = 4;
-          planType = "prime";
-          update = "yes";
-          DailyClub.amount += 60;
-          DailyClub.prime += 1;
-        }
-        break;
-
-      case "prime":
-        if (available >= 500) {
-          total = 500;
-          direct = 100;
-          level = 10;
-          planType = "royal";
-          update = "yes";
-          DailyClub.amount += 150;
-          DailyClub.royal += 1;
-        }
-        break;
-    }
-
-  }
-  catch(err){
-    console.log(err);
-  }
-}
 exports.getInfo = async (req, res) => {
   try {
     const allUser = await User.findAll({
       attributes: ["planType", "createdAt"],
     });
+
+    const comp = await Company.findAll();
 
     let allActive = 0;
     let notActive = 0;
@@ -190,6 +126,7 @@ exports.getInfo = async (req, res) => {
         allActiveInMonth: allActiveInMonth,
         notActive: notActive,
         notActiveInMonth: notActiveInMonth,
+        earning: comp[0].earningInLifetime
       },
     });
   } catch (err) {
@@ -300,6 +237,10 @@ exports.updateWidthdrawlRequest = async (req, res) => {
       });
       earning.widthdrawl += request.amount;
       await earning.save();
+
+      const company = await Company.findAll();
+      company[0].earningInLifetime += 10;
+      await company[0].save();
 
       res.status(201).json({ message: "approved", request: request });
     } else {

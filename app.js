@@ -58,9 +58,21 @@ UpgrageRequest.belongsTo(User);
 
 // updating database
 
-// const updateAll = require('./util/updateDatabase');
+const update = require('./util/updateDatabase');
 
-// updateAll.createBoostBoardDetails();
+const schedule = require('node-schedule');
+
+let date = new Date();
+
+date.setHours(23, 58, 0, 0);
+
+update.createcompany();
+
+schedule.scheduleJob(date, ()=>{
+  console.log("sheduling");
+  update.updateDailyClubIncome();
+});
+
 // updateAll.createDailyClub();
 
 const PORT = process.env.PORT;
